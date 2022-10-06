@@ -13,12 +13,12 @@ const add_hostel = async (req, res) => {
       hostel_name: req.body.hostel_name,
       hostel_distance: req.body.hostel_distance,
       hostel_description: req.body.hostel_description,
-      single_room_amount: req.body.single_room_amount,
-      double_room_amount: req.body.double_room_amount,
+      single_room_amount: parseInt(req.body.single_room_amount),
+      double_room_amount: parseInt(req.body.double_room_amount),
       telphone_number: req.body.telphone_number,
       single_rooms_available: req.body.single_rooms_available,
       double_rooms_available: req.body.double_rooms_available,
-      booking_fee: req.body.booking_fee,
+      booking_fee: parseInt(req.body.booking_fee),
       hostel_account_no: req.body.hostel_account_no,
       hostel_images: "",
       confirmed: false,
@@ -30,7 +30,6 @@ const add_hostel = async (req, res) => {
         result: save_added_hostel,
         data: "Hostel Added",
       });
-      // res.redirect('http://localhost:5002/');
     } catch (error) {
       console.log(error);
       res.send({ status: false, data: "An Error Occured", result: error });

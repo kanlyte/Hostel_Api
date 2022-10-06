@@ -42,27 +42,43 @@ const register_admin = async (req, res) => {
 
 //the brain for login of admin
 const admin_login = async (req, res) => {
-  try {
-    const current_admin = await Admin.find({
-      $and: [{ password: req.body.password }, { email: req.body.email }],
-    });
-    if (current_admin) {
-      res.send({ user: current_admin, status: true });
-    } else {
-      res.send({ status: false, data: "No matching details" });
+  if(req.body.email === "peter@gmail.com" && req.body.password === "rusoni18") {
+    res.send({ status: true, role: "admin", user: { username: "admin" } });
+  }else{
+    try {
+      const current_hostel_owner = await HostelOwner.findOne({
+        $and: [
+          { email: req.body.email },
+          {
+            password: req.body.password,
+          },
+        ],
+      });
+      current_hostel_owner
+        ? res.send({
+            user: current_hostel_owner,
+            role: "hostelowner",
+            status: true,
+          })
+        : res.send({ status: false, data: "Wrong Details" });
+    } catch (error) {
+      console.log(error);
+      res.send({
+        status: false,
+        data: "An Error Occured",
+      });
     }
-  } catch (error) {
-    console.log(error);
-    res.send({ status: false, data: "An Error Occured", result: error });
   }
-};
+  };
 
 //the brain for registering a hostel owner
 const register_hostel_owner = async (req, res) => {
   const email = await HostelOwner.findOne({
     email: { $eq: req.body.email },
   });
-  if (!email) {
+  if (email) {
+    res.send({ data: "email already exists", status: false });
+  }else{
     const owner = new HostelOwner({
       name: req.body.name,
       hostel: req.body.hostel,
@@ -77,6 +93,7 @@ const register_hostel_owner = async (req, res) => {
         status: true,
         data: "Hostel Owner Added",
         result: save_added_owner,
+        role: "hostel_owner"
       });
     } catch (error) {
       res.send({
@@ -85,10 +102,9 @@ const register_hostel_owner = async (req, res) => {
         result: error,
       });
     }
-  } else {
-    res.send({ data: "email already used ", status: false });
   }
-};
+} 
+ 
 
 // the controller that gets all hostel owners  for display
 const all_hostel_owners = async (req, res) => {

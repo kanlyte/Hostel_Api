@@ -49,7 +49,7 @@ const newHostelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  product_date: {
+  hostel_date: {
     type: Date,
     default: Date.now,
   },
@@ -123,7 +123,7 @@ const registerHostelOwnerSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minLength: [5, "Minimum password lenth is 5"],
+    minLength: [10, "Minimum password lenth is 5"],
   },
   register_date: {
     type: Date,
