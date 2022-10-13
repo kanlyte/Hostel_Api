@@ -11,7 +11,7 @@ const id = (schema) => {
 };
 
 //model for entering a new hostel
-const newHostelSchema = new mongoose.Schema({
+const HostelSchema = new mongoose.Schema({
   hostel_name: {
     type: String,
   },
@@ -42,6 +42,9 @@ const newHostelSchema = new mongoose.Schema({
   hostel_account_no: {
     type: Number,
   },
+  hostel_owner: {
+    type: String,
+  },
   hostel_images: {
     type: String,
   },
@@ -54,10 +57,9 @@ const newHostelSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+id(HostelSchema);
 
-id(newHostelSchema);
-
-const Hostel = new mongoose.model("hostels", newHostelSchema);
+const Hostel = new mongoose.model("hostels", HostelSchema);
 
 //model for registering a new user(student)
 const registerUserSchema = new mongoose.Schema({
