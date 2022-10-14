@@ -17,6 +17,7 @@ const {
   deleteOwner,
   allOwners,
   resetOwner,
+  allhostel,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -74,6 +75,7 @@ app.use("/api/v6/", pendinghostel);
 app.use("api/v6/", edithostel);
 app.use("api/v6/", singlehostel);
 app.use("api/v6/", deletehostel);
+app.use("api/v6/", allhostel);
 
 //database connectivity
 ConnectDB();

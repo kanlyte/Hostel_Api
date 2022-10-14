@@ -108,6 +108,16 @@ const confirmed_hostel = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+//gets all hostels
+const all_hostel = async (req, res) => {
+  try {
+    const all_hostel = await Hostel.find();
+    res.send({ status: true, result: all_hostel });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 
 //gets single hostel basing on the id
 const single_hostel = async (req, res) => {
@@ -150,4 +160,5 @@ module.exports = {
   confirmed_hostel,
   single_hostel,
   delete_hostel,
+  all_hostel,
 };
