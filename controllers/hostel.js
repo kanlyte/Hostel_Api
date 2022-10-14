@@ -81,12 +81,13 @@ const edit_hostel = async (req, res) => {
           booking_fee: req.body.booking_fee || current_hostel.booking_fee,
           hostel_account_no:
             req.body.hostel_account_no || current_hostel.hostel_account_no,
-            hostel_owner: current_hostel.hostel_owner,
-            confirmed: req.body.confirmed || current_hostel.confirmed,
-          //hostel images need to be acted upon
+          hostel_owner: current_hostel.hostel_owner,
+          confirmed: req.body.confirmed || current_hostel.confirmed,
+
+          // hostel images need to be acted upon
           hostel_images: req.body.hostel_images
-          ? JSON.stringify(req.body.hostel_images)
-          : current_hostel.hostel_images, 
+            ? JSON.stringify(req.body.hostel_images)
+            : current_hostel.hostel_images,
         },
       }
     );
@@ -124,21 +125,25 @@ const all_hostel = async (req, res) => {
 };
 
 //gets single hostel basing on the id
-const single_hostel = async (req, res) => {
+const one_hostel = async (req, res) => {
   try {
     const hostel = await Hostel.findById(req.params.id);
     if (hostel) {
-      const hostelowner = await HostelOwner.findById(hostel.hostel_owner);
-      res.send({ status: true, result: { hostel, hostelowner } });
+      res.send({
+        status: true,
+        result: hostel,
+      });
     } else {
-      res.send({ status: false, data: "Hostel Not Found" });
+      res.send({
+        status: false,
+        data: "No hostel found",
+      });
     }
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
-
 //delets a given hostel by id
 const delete_hostel = async (req, res) => {
   try {
@@ -166,8 +171,8 @@ module.exports = {
   add_hostel,
   pending_hostel,
   edit_hostel,
+  one_hostel,
   confirmed_hostel,
-  single_hostel,
   delete_hostel,
   all_hostel,
 };
