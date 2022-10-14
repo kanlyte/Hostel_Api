@@ -17,10 +17,11 @@ const {
   deleteOwner,
   allOwners,
   resetOwner,
+  allhostels,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
-const port = process.env.PORT || 5051;
+const port = process.env.PORT || 5055;
 
 app.use(cors()); //i also put cors like to access cross origin sites
 app.use(express.json());
@@ -61,12 +62,12 @@ app.use("/api/v6/", allOwners);
 app.use("/api/v6/", resetOwner);
 
 // hostel apis
-app.get("/hostel/:id", function (req, res) {
-  fetchid = req.params.id;
-  Hostel.find({ id: fetchid }, function (err, val) {
-    res.send(val);
-  });
-});
+// app.get("/hostel/:id", function (req, res) {
+//   fetchid = req.params.id;
+//   Hostel.find({ id: fetchid }, function (err, val) {
+//     res.send(val);
+//   });
+// });
 
 app.use("/api/v6/", addhostel);
 app.use("api/v6/", confirmedhostel);
@@ -74,6 +75,11 @@ app.use("/api/v6/", pendinghostel);
 app.use("api/v6/", edithostel);
 app.use("api/v6/", singlehostel);
 app.use("api/v6/", deletehostel);
+app.use("api/v6/", allhostels);
+
+
+
+
 
 //database connectivity
 ConnectDB();

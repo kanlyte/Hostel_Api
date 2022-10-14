@@ -14,6 +14,7 @@ const {
   confirmed_hostel,
   single_hostel,
   delete_hostel,
+  all_hostels,
 } = require("../controllers/hostel");
 const { owner_login } = require("../controllers/hostelOwner");
 const { register_user, user_login } = require("../controllers/user");
@@ -42,7 +43,10 @@ const pendinghostel = router.get("/pendinghostel", pending_hostel);
 const edithostel = router.put("/edit/:id", edit_hostel);
 const confirmedhostel = router.get("/confirmedhostel", confirmed_hostel);
 const singlehostel = router.get("/:id", single_hostel);
+const allhostels = router.get("/all", all_hostels);
 const deletehostel = router.delete("/deletehostel/:id", delete_hostel);
+
+
 
 module.exports = {
   addhostel,
@@ -60,4 +64,5 @@ module.exports = {
   deleteOwner,
   resetOwner,
   allOwners,
+  allhostels,
 };

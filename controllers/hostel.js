@@ -1,5 +1,5 @@
-const router = require("express").Router();
 const { Hostel, HostelOwner } = require("../models/model");
+const router = require("express").Router();
 
 //the controller for adding a new hostel
 const add_hostel = async (req, res) => {
@@ -118,16 +118,34 @@ const single_hostel = async (req, res) => {
   try {
     const hostel = await Hostel.findById(req.params.id);
     if (hostel) {
-      const hostelowner = await HostelOwner.findById(hostel.hostel_owner);
-      res.send({ status: true, result: { hostel, hostelowner } });
+      res.send({
+        status: true,
+        result: hostel,
+      });
     } else {
-      res.send({ status: false, data: "Hostel Not Found" });
+      res.send({
+        status: false,
+        data: "No hostel found",
+      });
     }
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+
+//gets all hostels
+const all_hostels = async (req, res) => {
+  try {
+    const check_hostel = await Hostel.find({ confirmed: { $eq: false } });
+    
+    res.send({ status: true, result: check_hostel });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 
 //delets a given hostel by id
 const delete_hostel = async (req, res) => {
@@ -159,4 +177,5 @@ module.exports = {
   confirmed_hostel,
   single_hostel,
   delete_hostel,
+  all_hostels,
 };
