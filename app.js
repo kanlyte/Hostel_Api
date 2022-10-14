@@ -8,7 +8,6 @@ const {
   pendinghostel,
   edithostel,
   confirmedhostel,
-  singlehostel,
   deletehostel,
   loginadmin,
   registerhostelowner,
@@ -17,7 +16,8 @@ const {
   deleteOwner,
   allOwners,
   resetOwner,
-  allhostels,
+  allhostel,
+  onehostel,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -62,7 +62,9 @@ app.use("/api/v6/", allOwners);
 app.use("/api/v6/", resetOwner);
 
 // hostel apis
-// app.get("/hostel/:id", function (req, res) {
+
+//gets a hostel by
+// app.get("api/v6/hostel/:id", function (req, res) {
 //   fetchid = req.params.id;
 //   Hostel.find({ id: fetchid }, function (err, val) {
 //     res.send(val);
@@ -73,13 +75,9 @@ app.use("/api/v6/", addhostel);
 app.use("api/v6/", confirmedhostel);
 app.use("/api/v6/", pendinghostel);
 app.use("api/v6/", edithostel);
-app.use("api/v6/", singlehostel);
 app.use("api/v6/", deletehostel);
-app.use("api/v6/", allhostels);
-
-
-
-
+app.use("api/v6/", allhostel);
+app.use("api/v6/", onehostel);
 
 //database connectivity
 ConnectDB();
