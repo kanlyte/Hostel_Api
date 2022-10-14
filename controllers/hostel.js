@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Hostel } = require("../models/model");
+const { Hostel, HostelOwner } = require("../models/model");
 
 //the controller for adding a new hostel
 const add_hostel = async (req, res) => {
@@ -21,6 +21,7 @@ const add_hostel = async (req, res) => {
       booking_fee: parseInt(req.body.booking_fee),
       hostel_account_no: req.body.hostel_account_no,
       hostel_images: "",
+      hostel_owner: req.body.hostel_owner,
       confirmed: false,
     });
     try {
@@ -80,9 +81,12 @@ const edit_hostel = async (req, res) => {
           booking_fee: req.body.booking_fee || current_hostel.booking_fee,
           hostel_account_no:
             req.body.hostel_account_no || current_hostel.hostel_account_no,
+            hostel_owner: current_hostel.hostel_owner,
+            confirmed: req.body.confirmed || current_hostel.confirmed,
           //hostel images need to be acted upon
-          hostel_images: "",
-          confirmed: true,
+          hostel_images: req.body.hostel_images
+          ? JSON.stringify(req.body.hostel_images)
+          : current_hostel.hostel_images, 
         },
       }
     );
@@ -122,8 +126,13 @@ const all_hostel = async (req, res) => {
 //gets single hostel basing on the id
 const single_hostel = async (req, res) => {
   try {
-    const single_hostel = await Hostel.findById(req.params.id);
-    res.send({ status: true, result: single_hostel });
+    const hostel = await Hostel.findById(req.params.id);
+    if (hostel) {
+      const hostelowner = await HostelOwner.findById(hostel.hostel_owner);
+      res.send({ status: true, result: { hostel, hostelowner } });
+    } else {
+      res.send({ status: false, data: "Hostel Not Found" });
+    }
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });

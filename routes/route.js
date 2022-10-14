@@ -40,9 +40,9 @@ const ownerlogin = router.post("/hostelowner", owner_login);
 //routes for hostels
 const addhostel = router.post("/newhostel", add_hostel);
 const pendinghostel = router.get("/pendinghostel", pending_hostel);
-const edithostel = router.put("/edithostel/:id", edit_hostel);
+const edithostel = router.put("/edit/:id", edit_hostel);
 const confirmedhostel = router.get("/confirmedhostel", confirmed_hostel);
-const singlehostel = router.get("/singlehostel/:id", single_hostel);
+const singlehostel = router.get("/:id", single_hostel);
 const deletehostel = router.delete("/deletehostel/:id", delete_hostel);
 const allhostel = router.get("/allhostel", all_hostel);
 
