@@ -1,5 +1,5 @@
 // const router = require("express").Router();
-const { Admin, HostelOwner } = require("../models/model");
+const { Admin, HostelOwner, LandLord } = require("../models/model");
 
 /*
   The admin details shall be hard coded meaning here we 
@@ -46,7 +46,7 @@ const admin_login = async (req, res) => {
     res.send({ status: true, role: "admin", user: { username: "admin" } });
   }else{
     try {
-      const current_hostel_owner = await HostelOwner.findOne({
+      const current_hostel_owner = await LandLord.findOne({
         $and: [
           { email: req.body.email },
           {
@@ -57,7 +57,7 @@ const admin_login = async (req, res) => {
       current_hostel_owner
         ? res.send({
             user: current_hostel_owner,
-            role: "hostelowner",
+            role: "landlord",
             status: true,
           })
         : res.send({ status: false, data: "Wrong Details" });
@@ -72,14 +72,14 @@ const admin_login = async (req, res) => {
   };
 
 //the brain for registering a hostel owner
-const register_hostel_owner = async (req, res) => {
-  const email = await HostelOwner.findOne({
+const new_landlord = async (req, res) => {
+  const email = await LandLord.findOne({
     email: { $eq: req.body.email },
   });
   if (email) {
     res.send({ data: "email already exists", status: false });
   }else{
-    const owner = new HostelOwner({
+    const landlord = new LandLord({
       name: req.body.name,
       hostel: req.body.hostel,
       phone_number: req.body.phone_number,
@@ -88,12 +88,12 @@ const register_hostel_owner = async (req, res) => {
       confirmed: true,
     });
     try {
-      const save_added_owner = await owner.save();
+      const save_added_owner = await landlord.save();
       res.send({
         status: true,
         data: "Hostel Owner Added",
         result: save_added_owner,
-        role: "hostel_owner"
+        role: "landlord"
       });
     } catch (error) {
       res.send({
@@ -104,6 +104,7 @@ const register_hostel_owner = async (req, res) => {
     }
   }
 } 
+ 
  
 
 // the controller that gets all hostel owners  for display
@@ -176,7 +177,7 @@ module.exports = {
   register_admin,
   admin_login,
   delete_hostel_owner,
-  register_hostel_owner,
+  new_landlord,
   all_hostel_owners,
   edit_hostel_owner,
 };

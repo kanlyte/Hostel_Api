@@ -43,7 +43,7 @@ const HostelSchema = new mongoose.Schema({
   hostel_account_no: {
     type: Number,
   },
-  hostel_owner: {
+  hostel_landlord: {
     type: String,
   },
   hostel_images: {
@@ -106,7 +106,7 @@ id(registeradminSchema);
 const Admin = new mongoose.model("admins", registeradminSchema);
 
 //model for registering a new hostel owner
-const registerHostelOwnerSchema = new mongoose.Schema({
+const landlordSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -126,7 +126,7 @@ const registerHostelOwnerSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minLength: [10, "Minimum password lenth is 5"],
+    // minLength: [10, "Minimum password lenth is 5"],
   },
   register_date: {
     type: Date,
@@ -134,10 +134,10 @@ const registerHostelOwnerSchema = new mongoose.Schema({
   },
 });
 
-id(registerHostelOwnerSchema);
-const HostelOwner = new mongoose.model(
-  "hostel_owner",
-  registerHostelOwnerSchema
+id(landlordSchema);
+const LandLord = new mongoose.model(
+  "landlord",
+  landlordSchema
 );
 
-module.exports = { Hostel, Users, Admin, HostelOwner };
+module.exports = { Hostel, Users, Admin, LandLord };

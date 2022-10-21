@@ -1,4 +1,4 @@
-const { Hostel, HostelOwner } = require("../models/model");
+const { Hostel, LandLord } = require("../models/model");
 const router = require("express").Router();
 
 //the controller for adding a new hostel
@@ -21,7 +21,7 @@ const add_hostel = async (req, res) => {
       booking_fee: parseInt(req.body.booking_fee),
       hostel_account_no: req.body.hostel_account_no,
       hostel_images: "",
-      hostel_owner: req.body.hostel_owner,
+      hostel_landlord: req.body.landlord,
       confirmed: false,
     });
     try {
@@ -81,7 +81,7 @@ const edit_hostel = async (req, res) => {
           booking_fee: req.body.booking_fee || current_hostel.booking_fee,
           hostel_account_no:
             req.body.hostel_account_no || current_hostel.hostel_account_no,
-          hostel_owner: current_hostel.hostel_owner,
+          hostel_landlord: current_hostel.hostel_landlord,
           confirmed: req.body.confirmed || current_hostel.confirmed,
 
           // hostel images need to be acted upon
@@ -116,8 +116,8 @@ const confirmed_hostel = async (req, res) => {
 //gets all hostels
 const all_hostel = async (req, res) => {
   try {
-    const all_hostel = await Hostel.find();
-    res.send({ status: true, result: all_hostel });
+    const hostels = await Hostel.find();
+    res.send({ status: true, result: hostels });
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
@@ -129,9 +129,10 @@ const one_hostel = async (req, res) => {
   try {
     const hostel = await Hostel.findById(req.params.id);
     if (hostel) {
+      const landlord = await LandLord.findById(hostel.hostel_landlord);
       res.send({
         status: true,
-        result: hostel,
+        result: {hostel,landlord },
       });
     } else {
       res.send({

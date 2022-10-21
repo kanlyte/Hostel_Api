@@ -10,7 +10,7 @@ const {
   confirmedhostel,
   deletehostel,
   loginadmin,
-  registerhostelowner,
+  newlandlord,
   userlogin,
   ownerlogin,
   deleteOwner,
@@ -18,10 +18,11 @@ const {
   resetOwner,
   allhostel,
   onehostel,
+  ownerhostels,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
-const port = process.env.PORT || 5055;
+const port = process.env.PORT || 5050;
 
 app.use(cors()); //i also put cors like to access cross origin sites
 app.use(express.json());
@@ -52,11 +53,13 @@ app.use("api/v6/", userlogin);
 
 //hostel owner apis
 app.use("api/v6/", ownerlogin);
+app.use("api/v6/", ownerhostels);
+
 
 //admin apis
 app.use("/api/v6/", registeradmin);
 app.use("/api/v6/", loginadmin);
-app.use("/api/v6/", registerhostelowner);
+app.use("/api/v6/", newlandlord);
 app.use("/api/v6/", deleteOwner);
 app.use("/api/v6/", allOwners);
 app.use("/api/v6/", resetOwner);
