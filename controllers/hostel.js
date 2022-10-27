@@ -1,4 +1,4 @@
-const { Hostel, LandLord } = require("../models/model");
+const { Hostel, LandLord, Rooms, Bookings } = require("../models/model");
 const router = require("express").Router();
 
 //the controller for adding a new hostel
@@ -132,7 +132,7 @@ const one_hostel = async (req, res) => {
       const landlord = await LandLord.findById(hostel.hostel_landlord);
       res.send({
         status: true,
-        result: {hostel,landlord },
+        result: { hostel, landlord },
       });
     } else {
       res.send({
@@ -168,6 +168,154 @@ const delete_hostel = async (req, res) => {
   }
 };
 
+//Adding a new room
+const add_room = async (req, res) => {
+  const myroom = await Rooms.findOne({
+    room_number: { $eq: req.body.room_number },
+  });
+  if (!myroom) {
+    const room = new room({
+      room_type: req.body.room_type,
+      room_number: parseInt(req.body.room_number),
+      room_fee: parseInt(req.body.room_fee),
+      room_image: "",
+      confirm: false,
+    });
+    try {
+      const save_added_room = await room.save();
+      res.send({
+        status: true,
+        result: save_added_room,
+        data: "Room Added",
+      });
+    } catch (error) {
+      console.log(error);
+      res.send({ status: false, data: "An Error Occured", result: error });
+    }
+  } else {
+    res.send({ data: "Room Exists ", status: false });
+  }
+};
+//gets all rooms that are not taken
+const availabe_rooms = async (req, res) => {
+  try {
+    const rooms = await Rooms.find({ confirmed: { $eq: true } });
+    res.send({ status: true, result: rooms });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+//gets all rooms that are booked
+const booked_rooms = async (req, res) => {
+  try {
+    const rooms = await Rooms.find({ confirmed: { $eq: false } });
+    res.send({ status: false, result: rooms });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//controller for editing a room
+const edit_room = async (req, res) => {
+  try {
+    const current_room = await Rooms.findById(req.params.id);
+    const updated_room = await Rooms.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          room_type: req.body.room_type || current_room.room_type,
+          room_number:
+            parseInt(req.body.room_number) || current_room.room_number,
+          room_fee: parseInt(req.body.room_fee) || current_room.room_fee,
+          confirmed: true,
+
+          // hostel images need to be acted upon
+          room_image: req.body.room_image
+            ? JSON.stringify(req.body.room_image)
+            : current_image.room_image,
+        },
+      }
+    );
+    res.send({
+      status: true,
+      data: "room updsted",
+      result: updated_room,
+    });
+  } catch {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+//delets a given room by id
+const delete_room = async (req, res) => {
+  try {
+    const current_room = await Rooms.findById(req.params.id);
+    if (current_room) {
+      const removed_room = await Rooms.deleteOne({ _id: req.params.id });
+      res.send({
+        status: true,
+        data: "deleted",
+        result: removed_room,
+      });
+    } else {
+      res.send({
+        status: true,
+        data: "room not Found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//controller for booking a new room
+const book_room = async (req, res) => {
+  // const myroom = await Bookings.find({ booked: { $eq:  } });
+  const myroom = await Bookings.find({
+    room_number: { $eq: req.body.room_number },
+  });
+  if (!myroom) {
+    const booknow = new booknow({
+      name: req.body.name,
+      telephone_number: parseInt(req.body.telephone_number),
+      name_of_hostel: req.body.name_of_hostel,
+      room_number: parseInt(req.body.room_number),
+      email: req.body.email,
+      email: req.body.email,
+      booked: false,
+    });
+    try {
+      const save_booked_room = await booknow.save();
+      res.send({
+        status: true,
+        result: save_booked_room,
+        data: " Room has been booked",
+      });
+    } catch (error) {
+      console.log(error);
+      res.send({ status: false, data: "An Error Occured", result: error });
+    }
+  } else {
+    res.send({ data: "Room Taken already ", status: false });
+  }
+};
+
+//controller for getting all bookings
+const all_bookings = async (req, res) => {
+  try {
+    const bookings = await Bookings.find({ booked: { $eq: false } });
+    res.send({ status: true, result: bookings });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 module.exports = {
   add_hostel,
   pending_hostel,
@@ -176,4 +324,11 @@ module.exports = {
   confirmed_hostel,
   delete_hostel,
   all_hostel,
+  add_room,
+  edit_room,
+  booked_rooms,
+  availabe_rooms,
+  delete_room,
+  book_room,
+  all_bookings,
 };

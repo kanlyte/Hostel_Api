@@ -62,6 +62,32 @@ id(HostelSchema);
 
 const Hostel = new mongoose.model("hostels", HostelSchema);
 
+//model for adding rooms
+const RoomSchema = new mongoose.Schema({
+  room_type: {
+    type: String,
+  },
+  room_number: {
+    type: String,
+  },
+  room_fee: {
+    type: String,
+  },
+  room_image: {
+    type: String,
+  },
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+id(RoomSchema);
+const Rooms = new mongoose.model("rooms", RoomSchema);
+
 //model for registering a new user(student)
 const registerUserSchema = new mongoose.Schema({
   full_name: {
@@ -135,9 +161,31 @@ const landlordSchema = new mongoose.Schema({
 });
 
 id(landlordSchema);
-const LandLord = new mongoose.model(
-  "landlord",
-  landlordSchema
-);
+const LandLord = new mongoose.model("landlord", landlordSchema);
 
-module.exports = { Hostel, Users, Admin, LandLord };
+//model for booking a room
+const bookingRoomSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  telphone_number: {
+    type: Number,
+  },
+  name_of_hostel: {
+    type: String,
+  },
+  room_number: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  level: {
+    type: String,
+  },
+  booked: false,
+});
+id(bookingRoomSchema);
+const Bookings = new mongoose.model("bookings", bookingRoomSchema);
+
+module.exports = { Hostel, Users, Admin, LandLord, Rooms, Bookings };

@@ -19,6 +19,13 @@ const {
   allhostel,
   onehostel,
   ownerhostels,
+  availaberooms,
+  bookedrooms,
+  deleteroom,
+  editroom,
+  addroom,
+  getbookings,
+  addbooking,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -55,7 +62,6 @@ app.use("api/v6/", userlogin);
 app.use("api/v6/", ownerlogin);
 app.use("api/v6/", ownerhostels);
 
-
 //admin apis
 app.use("/api/v6/", registeradmin);
 app.use("/api/v6/", loginadmin);
@@ -64,16 +70,7 @@ app.use("/api/v6/", deleteOwner);
 app.use("/api/v6/", allOwners);
 app.use("/api/v6/", resetOwner);
 
-// hostel apis
-
-//gets a hostel by
-// app.get("api/v6/hostel/:id", function (req, res) {
-//   fetchid = req.params.id;
-//   Hostel.find({ id: fetchid }, function (err, val) {
-//     res.send(val);
-//   });
-// });
-
+//hostel apis
 app.use("/api/v6/", addhostel);
 app.use("api/v6/", confirmedhostel);
 app.use("/api/v6/", pendinghostel);
@@ -81,6 +78,17 @@ app.use("api/v6/", edithostel);
 app.use("api/v6/", deletehostel);
 app.use("api/v6/", allhostel);
 app.use("api/v6/", onehostel);
+
+//room apis
+app.use("api/v6/", addroom);
+app.use("api/v6/", availaberooms);
+app.use("api/v6/", bookedrooms);
+app.use("api/v6/", deleteroom);
+app.use("api/v6/", editroom);
+
+//booking apis
+app.use("api/v6", getbookings);
+app.use("api/v6", addbooking);
 
 //database connectivity
 ConnectDB();
