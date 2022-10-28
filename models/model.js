@@ -76,7 +76,7 @@ const RoomSchema = new mongoose.Schema({
   room_image: {
     type: String,
   },
-  confirmed: {
+  taken: {
     type: Boolean,
     default: false,
   },
