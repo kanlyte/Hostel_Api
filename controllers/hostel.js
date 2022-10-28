@@ -174,8 +174,7 @@ const add_room = async (req, res) => {
     room_number: { $eq: req.body.room_number },
   });
   if (!myroom) {
-    const room = new room({
-      hostel_id: req.body.hostel_id,
+    const room = new Rooms({
       room_type: req.body.room_type,
       room_number: parseInt(req.body.room_number),
       room_fee: parseInt(req.body.room_fee),
