@@ -92,7 +92,7 @@ const new_landlord = async (req, res) => {
       res.send({
         status: true,
         data: "Hostel Owner Added",
-        result: save_added_owner,
+        user: save_added_owner,
         role: "landlord"
       });
     } catch (error) {

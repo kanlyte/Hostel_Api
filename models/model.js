@@ -64,6 +64,9 @@ const Hostel = new mongoose.model("hostels", HostelSchema);
 
 //model for adding rooms
 const RoomSchema = new mongoose.Schema({
+  hostel_id: {
+    type: String,
+  },
   room_type: {
     type: String,
   },
@@ -75,10 +78,6 @@ const RoomSchema = new mongoose.Schema({
   },
   room_image: {
     type: String,
-  },
-  confirmed: {
-    type: Boolean,
-    default: false,
   },
   date: {
     type: Date,
