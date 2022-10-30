@@ -40,7 +40,7 @@ const userlogin = router.post("/user", user_login);
 
 //hostel owner login
 const ownerlogin = router.post("/hostelowner", owner_login);
-const ownerhostels = router.post("/hostels/:id", owner_hostels);
+const ownerhostels = router.get("/hostels/:id", owner_hostels);
 
 //routes for hostels
 const addhostel = router.post("/newhostel", add_hostel);

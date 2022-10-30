@@ -79,6 +79,10 @@ const RoomSchema = new mongoose.Schema({
   room_image: {
     type: String,
   },
+  booked: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,

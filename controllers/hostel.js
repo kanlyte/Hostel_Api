@@ -175,10 +175,13 @@ const add_room = async (req, res) => {
   });
   if (!myroom) {
     const room = new Rooms({
+      hostel_id: req.body.hostel_id,
       room_type: req.body.room_type,
       room_number: parseInt(req.body.room_number),
       room_fee: parseInt(req.body.room_fee),
-      room_image: "",
+      room_description: req.body.room_description,
+      booked: false,
+
     });
     try {
       const save_added_room = await room.save();

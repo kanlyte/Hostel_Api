@@ -29,7 +29,7 @@ const {
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
-const port = process.env.PORT || 5050;
+const port = process.env.PORT || 5055;
 
 app.use(cors()); //i also put cors like to access cross origin sites
 app.use(express.json());
