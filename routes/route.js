@@ -53,7 +53,7 @@ const allhostel = router.get("/allhostels", all_hostel);
 
 //routes for rooms
 const addroom = router.post("/addroom", add_room);
-const availaberooms = router.get("/availableroom", availabe_rooms);
+const availaberooms = router.get("/availablerooms", availabe_rooms);
 const bookedrooms = router.get("/bookedrooms", booked_rooms);
 const deleteroom = router.delete("/deleteroom/:id", delete_room);
 const editroom = router.put("/editroom:/id", edit_room);

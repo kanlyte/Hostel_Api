@@ -201,7 +201,7 @@ const add_room = async (req, res) => {
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
   try {
-    const rooms = await Rooms.find({ confirmed: { $eq: true } });
+    const rooms = await Rooms.find({ taken: { $eq: false } });
     res.send({ status: true, result: rooms });
   } catch (error) {
     console.log(error);
@@ -211,7 +211,7 @@ const availabe_rooms = async (req, res) => {
 //gets all rooms that are booked
 const booked_rooms = async (req, res) => {
   try {
-    const rooms = await Rooms.find({ confirmed: { $eq: false } });
+    const rooms = await Rooms.find({ taken: { $eq: true } });
     res.send({ status: false, result: rooms });
   } catch (error) {
     console.log(error);
