@@ -76,9 +76,6 @@ const RoomSchema = new mongoose.Schema({
   room_fee: {
     type: String,
   },
-  room_image: {
-    type: String,
-  },
   booked: {
     type: Boolean,
     default: false,

@@ -171,7 +171,10 @@ const delete_hostel = async (req, res) => {
 //Adding a new room
 const add_room = async (req, res) => {
   const myroom = await Rooms.findOne({
-    room_number: { $eq: req.body.room_number },
+    $and: [
+      { room_number: req.body.room_number },
+      { hostel_id: req.body.hostel_id },
+    ],
   });
   if (!myroom) {
     const room = new Rooms({
@@ -181,7 +184,6 @@ const add_room = async (req, res) => {
       room_fee: parseInt(req.body.room_fee),
       room_description: req.body.room_description,
       booked: false,
-
     });
     try {
       const save_added_room = await room.save();
