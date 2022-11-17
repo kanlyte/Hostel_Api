@@ -200,6 +200,7 @@ const add_room = async (req, res) => {
     res.send({ data: "Room Exists ", status: false });
   }
 };
+
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
   try {
@@ -277,28 +278,33 @@ const delete_room = async (req, res) => {
   }
 };
 
-//controller for booking a new room
+// controller for booking a new room
+
 const book_room = async (req, res) => {
-  // const myroom = await Bookings.find({ booked: { $eq:  } });
-  const myroom = await Bookings.find({
-    room_number: { $eq: req.body.room_number },
+  const myroom = await Rooms.findOne({
+    $and: [
+      { room_number: req.body.room_number },
+      // { hostel_id: req.body.hostel_id },
+      { booked: { $eq: true } },
+    ],
   });
   if (!myroom) {
-    const booknow = new booknow({
+    const booknow = new Bookings({
+      hostel_id: req.body.hostel_id,
       name: req.body.name,
       telephone_number: parseInt(req.body.telephone_number),
       name_of_hostel: req.body.name_of_hostel,
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
       email: req.body.email,
-      booked: false,
+      booked: true,
     });
     try {
       const save_booked_room = await booknow.save();
       res.send({
         status: true,
         result: save_booked_room,
-        data: " Room has been booked",
+        data: " Thanks for booking with us",
       });
     } catch (error) {
       console.log(error);
