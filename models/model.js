@@ -80,6 +80,9 @@ const RoomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  hostel_landlord: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,
@@ -180,7 +183,13 @@ const bookingRoomSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  level: {
+  level_of_study: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  type_of_entry: {
     type: String,
   },
   booked: false,

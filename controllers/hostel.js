@@ -184,6 +184,8 @@ const add_room = async (req, res) => {
       room_fee: parseInt(req.body.room_fee),
       room_description: req.body.room_description,
       booked: false,
+      hostel_landlord: req.body.landlord,
+
     });
     try {
       const save_added_room = await room.save();
@@ -203,7 +205,7 @@ const add_room = async (req, res) => {
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
   try {
-    const rooms = await Rooms.find({ taken: { $eq: false } });
+    const rooms = await Rooms.find({ booked: { $eq: false } });
     res.send({ status: true, result: rooms });
   } catch (error) {
     console.log(error);
@@ -213,7 +215,7 @@ const availabe_rooms = async (req, res) => {
 //gets all rooms that are booked
 const booked_rooms = async (req, res) => {
   try {
-    const rooms = await Rooms.find({ taken: { $eq: true } });
+    const rooms = await Rooms.find({ booked: { $eq: true } });
     res.send({ status: false, result: rooms });
   } catch (error) {
     console.log(error);
@@ -254,6 +256,17 @@ const edit_room = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+
+//gets all rooms
+const all_rooms = async (req, res) => {
+  try {
+    const rooms = await Rooms.find();
+    res.send({ status: true, result: rooms });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 //delets a given room by id
 const delete_room = async (req, res) => {
   try {
@@ -279,7 +292,6 @@ const delete_room = async (req, res) => {
 
 //controller for booking a new room
 const book_room = async (req, res) => {
-  // const myroom = await Bookings.find({ booked: { $eq:  } });
   const myroom = await Bookings.find({
     room_number: { $eq: req.body.room_number },
   });
@@ -290,8 +302,9 @@ const book_room = async (req, res) => {
       name_of_hostel: req.body.name_of_hostel,
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
-      email: req.body.email,
-      booked: false,
+      level_of_study: req.body.level_of_study,
+      type_of_entry: req.body.type_of_entry,
+      location: req.body.location,
     });
     try {
       const save_booked_room = await booknow.save();
@@ -328,6 +341,7 @@ module.exports = {
   confirmed_hostel,
   delete_hostel,
   all_hostel,
+  all_rooms,
   add_room,
   edit_room,
   booked_rooms,

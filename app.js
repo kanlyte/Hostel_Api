@@ -17,6 +17,7 @@ const {
   allOwners,
   resetOwner,
   allhostel,
+  allrooms,
   onehostel,
   ownerhostels,
   availaberooms,
@@ -26,6 +27,7 @@ const {
   addroom,
   getbookings,
   addbooking,
+  landlordrooms,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -61,6 +63,8 @@ app.use("api/v6/", userlogin);
 //hostel owner apis
 app.use("api/v6/", ownerlogin);
 app.use("api/v6/", ownerhostels);
+app.use("api/v6/", landlordrooms);
+
 
 //admin apis
 app.use("/api/v6/", registeradmin);
@@ -85,6 +89,7 @@ app.use("api/v6/", availaberooms);
 app.use("api/v6/", bookedrooms);
 app.use("api/v6/", deleteroom);
 app.use("api/v6/", editroom);
+app.use("api/v6", allrooms);
 
 //booking apis
 app.use("api/v6", getbookings);

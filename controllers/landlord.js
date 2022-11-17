@@ -1,4 +1,4 @@
-const { Hostel, LandLord } = require("../models/model");
+const { Hostel, LandLord, Rooms } = require("../models/model");
 
 //the brain for login of a hostel owner
 const owner_login = async (req, res) => {
@@ -31,4 +31,17 @@ const owner_hostels = async (req, res) => {
   }
 };
 
-module.exports = { owner_login, owner_hostels };
+const landlord_rooms = async (req, res) => {
+  try {
+    const rooms = await Rooms.find({
+      hostel_landlord: { $eq: req.params.id },
+    });
+    res.send({ status: true, result: rooms });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+
+module.exports = { owner_login, owner_hostels, landlord_rooms };
