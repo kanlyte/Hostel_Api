@@ -16,6 +16,9 @@ const HostelSchema = new mongoose.Schema({
   hostel_name: {
     type: String,
   },
+  hostel_id: {
+    type: String,
+  },
   hostel_distance: {
     type: String,
   },
