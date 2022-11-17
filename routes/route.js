@@ -22,6 +22,7 @@ const {
   edit_room,
   book_room,
   all_bookings,
+  all_rooms,
 } = require("../controllers/hostel");
 const { owner_login, owner_hostels } = require("../controllers/landlord");
 const { register_user, user_login } = require("../controllers/user");
@@ -53,6 +54,7 @@ const allhostel = router.get("/allhostels", all_hostel);
 
 //routes for rooms
 const addroom = router.post("/addroom", add_room);
+const allrooms = router.get("/allrooms", all_rooms);
 const availaberooms = router.get("/availablerooms", availabe_rooms);
 const bookedrooms = router.get("/bookedrooms", booked_rooms);
 const deleteroom = router.delete("/deleteroom/:id", delete_room);
@@ -87,4 +89,5 @@ module.exports = {
   editroom,
   addbooking,
   getbookings,
+  allrooms,
 };
