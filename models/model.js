@@ -108,9 +108,7 @@ const registerUserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  confirm_password: {
-    type: String,
-  },
+ 
   register_date: {
     type: Date,
     default: Date.now,

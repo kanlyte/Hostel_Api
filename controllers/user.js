@@ -18,14 +18,13 @@ const register_user = async (req, res) => {
     email: { $eq: req.body.email },
   });
   if (email_check) {
-    res.send({ data: "Email taken", status: false });
+    res.send({ data: "Emailtaken", status: false });
   } else {
     const user = new Users({
       full_name: req.body.full_name,
       phone_number: req.body.phone_number,
       email: req.body.email,
       password: req.body.password,
-      confirm_password: req.body.confirm_password,
     });
     try {
       const save_added_user = await user.save();

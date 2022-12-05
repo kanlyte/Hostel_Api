@@ -309,7 +309,6 @@ const book_room = async (req, res) => {
       name_of_hostel: req.body.name_of_hostel,
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
-      email: req.body.email,
       booked: true,
     });
     try {
