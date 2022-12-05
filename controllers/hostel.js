@@ -260,7 +260,7 @@ const edit_room = async (req, res) => {
     );
     res.send({
       status: true,
-      data: "room updsted",
+      data: "room updated",
       result: updated_room,
     });
   } catch {
@@ -295,6 +295,7 @@ const delete_room = async (req, res) => {
 
 const book_room = async (req, res) => {
   const myroom = await Rooms.findOne({
+    //checking whether the room exists in the particular hostel
     $and: [
       { booked: { $eq: false } },
       { room_number: req.body.room_number },
@@ -310,7 +311,7 @@ const book_room = async (req, res) => {
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
       email: req.body.email,
-      booked: true,
+      user_request: true,
     });
     try {
       const save_booked_room = await booknow.save();
@@ -331,8 +332,35 @@ const book_room = async (req, res) => {
 //controller for getting all bookings
 const all_bookings = async (req, res) => {
   try {
-    const bookings = await Bookings.find({ booked: { $eq: false } });
+    const bookings = await Bookings.findOne({
+      $and: [{ booked: { $eq: false } }, { user_request: { $eq: true } }],
+    });
     res.send({ status: true, result: bookings });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+//updating database after booking a room
+const update_booked = async (req, res) => {
+  try {
+    const current_book = await Bookings.findById(req.params.id);
+    const update_book = await Bookings.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          booked: req.body.booked || current_book.booked == true,
+          user_request: req.body.user_request || current_book == false,
+        },
+      }
+    );
+    res.send({
+      status: true,
+      data: "room updated",
+      result: update_book,
+    });
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
@@ -355,4 +383,5 @@ module.exports = {
   book_room,
   all_bookings,
   all_rooms,
+  update_booked,
 };

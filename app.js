@@ -27,6 +27,7 @@ const {
   getbookings,
   addbooking,
   allrooms,
+  updatebooked,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -91,6 +92,7 @@ app.use("api/v6/", allrooms);
 //booking apis
 app.use("api/v6/", getbookings);
 app.use("api/v6/", addbooking);
+app.use("api/v6/", updatebooked);
 
 //database connectivity
 ConnectDB();

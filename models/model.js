@@ -186,7 +186,10 @@ const bookingRoomSchema = new mongoose.Schema({
   level: {
     type: String,
   },
-  booked: false,
+  user_request: {
+    type: Boolean,
+    default: true,
+  },
 });
 id(bookingRoomSchema);
 const Bookings = new mongoose.model("bookings", bookingRoomSchema);
