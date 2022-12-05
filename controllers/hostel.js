@@ -202,6 +202,19 @@ const add_room = async (req, res) => {
     res.send({ data: "Room Exists ", status: false });
   }
 };
+//gets all rooms available and not available
+const all_rooms = async (req, res) => {
+  try {
+    const rooms = await Rooms.find();
+    res.send({
+      status: true,
+      result: rooms,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
@@ -249,7 +262,7 @@ const edit_room = async (req, res) => {
     );
     res.send({
       status: true,
-      data: "room updsted",
+      data: "room updated",
       result: updated_room,
     });
   } catch {
@@ -295,13 +308,14 @@ const delete_room = async (req, res) => {
 
 const book_room = async (req, res) => {
   const myroom = await Rooms.findOne({
+    //checking whether the room exists in the particular hostel
     $and: [
+      { booked: { $eq: false } },
       { room_number: req.body.room_number },
-      // { hostel_id: req.body.hostel_id },
-      { booked: { $eq: true } },
+      { hostel_id: req.body.hostel_id },
     ],
   });
-  if (!myroom) {
+  if (myroom) {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
       name: req.body.name,
@@ -309,7 +323,8 @@ const book_room = async (req, res) => {
       name_of_hostel: req.body.name_of_hostel,
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
-      booked: true,
+      email: req.body.email,
+      user_request: true,
     });
     try {
       const save_booked_room = await booknow.save();
@@ -330,8 +345,35 @@ const book_room = async (req, res) => {
 //controller for getting all bookings
 const all_bookings = async (req, res) => {
   try {
-    const bookings = await Bookings.find({ booked: { $eq: false } });
+    const bookings = await Bookings.findOne({
+      $and: [{ booked: { $eq: false } }, { user_request: { $eq: true } }],
+    });
     res.send({ status: true, result: bookings });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+//updating database after booking a room
+const update_booked = async (req, res) => {
+  try {
+    const current_book = await Bookings.findById(req.params.id);
+    const update_book = await Bookings.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          booked: req.body.booked || current_book.booked == true,
+          user_request: req.body.user_request || current_book == false,
+        },
+      }
+    );
+    res.send({
+      status: true,
+      data: "room updated",
+      result: update_book,
+    });
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
@@ -354,4 +396,6 @@ module.exports = {
   delete_room,
   book_room,
   all_bookings,
+  all_rooms,
+  update_booked,
 };

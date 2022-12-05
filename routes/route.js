@@ -23,6 +23,8 @@ const {
   edit_room,
   book_room,
   all_bookings,
+  all_rooms,
+  update_booked,
 } = require("../controllers/hostel");
 const { owner_login, owner_hostels, landlord_rooms } = require("../controllers/landlord");
 const { register_user, user_login } = require("../controllers/user");
@@ -65,6 +67,7 @@ const editroom = router.put("/editroom:/id", edit_room);
 //routes for bookings
 const addbooking = router.post("/book", book_room);
 const getbookings = router.get("/allbookings", all_bookings);
+const updatebooked = router.get("/booked/:id", update_booked);
 
 module.exports = {
   addhostel,
@@ -93,4 +96,47 @@ module.exports = {
   addbooking,
   landlordrooms,
   getbookings,
+  allrooms,
+  updatebooked,
 };
+
+// "result": [
+//   {
+//       "hostel_id": "635ece58c52f478f1d7cc539",
+//       "room_type": "Single",
+//       "room_number": "7",
+//       "room_fee": "350000",
+//       "booked": false,
+//       "hostel_landlord": "634a9e1ea081360018fd294c",
+//       "date": "2022-11-09T06:20:04.825Z",
+//       "id": "636b4694ad2de8766a81e722"
+//   },
+//   {
+//       "hostel_id": "635ece58c52f478f1d7cc539",
+//       "room_type": "Double",
+//       "room_number": "33",
+//       "room_fee": "4300000",
+//       "booked": false,
+//       "hostel_landlord": "634a9e1ea081360018fd294c",
+//       "date": "2022-11-09T06:21:28.064Z",
+//       "id": "636b46e8ad2de8766a81e726"
+//   },
+//   {
+//       "hostel_id": "635ece58c52f478f1d7cc539",
+//       "room_type": "Single",
+//       "room_number": "3",
+//       "room_fee": "300000",
+//       "booked": false,
+//       "hostel_landlord": "634a9e1ea081360018fd294c",
+//       "date": "2022-11-09T06:21:45.105Z",
+//       "id": "636b46f9ad2de8766a81e72a"
+//   }
+
+// {
+//     "hostel_id":"635ece58c52f478f1d7cc539",
+//     "name":"Gaston",
+//     "telephone_number":"089586",
+//     "room_number":"33",
+//     "email":"g@gmail.com",
+//     "level":"Undergraduate"
+// }

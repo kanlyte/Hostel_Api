@@ -27,7 +27,8 @@ const {
   addroom,
   getbookings,
   addbooking,
-  landlordrooms,
+  allrooms,
+  updatebooked,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -89,11 +90,16 @@ app.use("api/v6/", availaberooms);
 app.use("api/v6/", bookedrooms);
 app.use("api/v6/", deleteroom);
 app.use("api/v6/", editroom);
+<<<<<<< HEAD
 app.use("api/v6", allrooms);
+=======
+app.use("api/v6/", allrooms);
+>>>>>>> 1759bd81767cc88a53b1b9cd310cade5fdd38cf4
 
 //booking apis
-app.use("api/v6", getbookings);
-app.use("api/v6", addbooking);
+app.use("api/v6/", getbookings);
+app.use("api/v6/", addbooking);
+app.use("api/v6/", updatebooked);
 
 //database connectivity
 ConnectDB();
