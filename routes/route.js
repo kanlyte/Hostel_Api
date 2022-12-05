@@ -64,7 +64,7 @@ const editroom = router.put("/editroom:/id", edit_room);
 //routes for bookings
 const addbooking = router.post("/book", book_room);
 const getbookings = router.get("/allbookings", all_bookings);
-const updatebooked = router.get("/booked/:id", update_booked);
+const updatebooked = router.put("/booked/:id", update_booked);
 
 module.exports = {
   addhostel,

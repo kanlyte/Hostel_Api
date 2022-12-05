@@ -310,7 +310,7 @@ const book_room = async (req, res) => {
       name_of_hostel: req.body.name_of_hostel,
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
-      email: req.body.email,
+      level: req.body.level,
       user_request: true,
     });
     try {
@@ -345,7 +345,7 @@ const all_bookings = async (req, res) => {
 const update_booked = async (req, res) => {
   try {
     const current_book = await Bookings.findById(req.params.id);
-    const update_book = await Bookings.updateOne(
+    const update_book = await Rooms.updateOne(
       {
         _id: req.params.id,
       },
