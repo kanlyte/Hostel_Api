@@ -24,6 +24,7 @@ const {
   all_bookings,
   all_rooms,
   update_booked,
+  delete_bookings,
 } = require("../controllers/hostel");
 const { owner_login, owner_hostels } = require("../controllers/landlord");
 const { register_user, user_login } = require("../controllers/user");
@@ -31,10 +32,12 @@ const { register_user, user_login } = require("../controllers/user");
 //admin  routes
 const registeradmin = router.post("/newadmin", register_admin);
 const loginadmin = router.post("/loginadmin", admin_login);
+
+//landlord / hostel owner routes
 const newlandlord = router.post("/newlandlord", new_landlord);
 const deleteOwner = router.delete("/deleteowner", delete_hostel);
 const resetOwner = router.post("/resetowmer", edit_hostel_owner);
-const allOwners = router.get("/allOwners", all_hostel_owners);
+const allOwners = router.get("/allowners", all_hostel_owners);
 
 // user routes
 const registeruser = router.post("/newuser", register_user);
@@ -65,6 +68,9 @@ const editroom = router.put("/editroom:/id", edit_room);
 const addbooking = router.post("/book", book_room);
 const getbookings = router.get("/allbookings", all_bookings);
 const updatebooked = router.put("/booked/:id", update_booked);
+const deleteallbookings = router.delete("/deletebookings", delete_bookings);
+
+//routes for hostel owners
 
 module.exports = {
   addhostel,
@@ -93,6 +99,7 @@ module.exports = {
   getbookings,
   allrooms,
   updatebooked,
+  deleteallbookings,
 };
 
 // "result": [

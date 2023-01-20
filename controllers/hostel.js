@@ -305,6 +305,7 @@ const book_room = async (req, res) => {
   if (myroom) {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
+      room_id: req.body.room_id,
       name: req.body.name,
       telephone_number: parseInt(req.body.telephone_number),
       name_of_hostel: req.body.name_of_hostel,
@@ -313,8 +314,20 @@ const book_room = async (req, res) => {
       level: req.body.level,
       user_request: true,
     });
+
+    // console.log(Rooms.room_number);
+
     try {
       const save_booked_room = await booknow.save();
+
+      const room = await Rooms.find();
+      const now = await room.filter((broom) => {
+        return broom.id == save_booked_room.room_id;
+      });
+      const gast = await Rooms.updateOne(
+        { _id: save_booked_room.room_id },
+        { $set: { booked: true } }
+      );
       res.send({
         status: true,
         result: save_booked_room,
@@ -332,8 +345,13 @@ const book_room = async (req, res) => {
 //controller for getting all bookings
 const all_bookings = async (req, res) => {
   try {
-    const bookings = await Bookings.findOne({
-      $and: [{ booked: { $eq: false } }, { user_request: { $eq: true } }],
+    const bookings = await Bookings.find({
+      //  booked: { $eq: false }
+      // $and: [{ booked: { $eq: true } },
+      // {
+      user_request: { $eq: true },
+      // }
+      // ],
     });
     res.send({ status: true, result: bookings });
   } catch (error) {
@@ -341,6 +359,29 @@ const all_bookings = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+//deleting all bookings at once
+const delete_bookings = async (req, res) => {
+  try {
+    const all = await Bookings.find({ user_request: { $eq: true } });
+    if (all) {
+      const deleteall = await Bookings.deleteMany({ user_request: true });
+      res.send({
+        status: true,
+        data: "deleted",
+        result: deleteall,
+      });
+    } else {
+      res.send({
+        status: true,
+        data: "Room not Found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 //updating database after booking a room
 const update_booked = async (req, res) => {
   try {
@@ -384,4 +425,5 @@ module.exports = {
   all_bookings,
   all_rooms,
   update_booked,
+  delete_bookings,
 };
