@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
-require("dotenv/config");
+const MONGO_URI =
+  "mongodb+srv://BrianGaston:gast2019@hostelmangementsystem.9ccov.mongodb.net/Hostel-API?retryWrites=true&w=majority";
+// require("dotenv/config");
 
 const ConnectDB = () => {
   mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })

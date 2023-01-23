@@ -70,6 +70,9 @@ const RoomSchema = new mongoose.Schema({
   hostel_id: {
     type: String,
   },
+  landlord_id: {
+    type: String,
+  },
   room_type: {
     type: String,
   },
@@ -184,13 +187,10 @@ const bookingRoomSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  level_of_study: {
+  room_id: {
     type: String,
   },
-  location: {
-    type: String,
-  },
-  type_of_entry: {
+  level: {
     type: String,
   },
   user_request: {

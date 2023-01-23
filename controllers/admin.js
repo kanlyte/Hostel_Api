@@ -42,9 +42,12 @@ const register_admin = async (req, res) => {
 
 //the brain for login of admin
 const admin_login = async (req, res) => {
-  if(req.body.email === "peter@gmail.com" && req.body.password === "rusoni18") {
+  if (
+    req.body.email === "nahuriragaston@gmail.com" &&
+    req.body.password === "gast@2019"
+  ) {
     res.send({ status: true, role: "admin", user: { username: "admin" } });
-  }else{
+  } else {
     try {
       const current_hostel_owner = await LandLord.findOne({
         $and: [
@@ -69,7 +72,7 @@ const admin_login = async (req, res) => {
       });
     }
   }
-  };
+};
 
 //the brain for registering a hostel owner
 const new_landlord = async (req, res) => {
@@ -78,7 +81,7 @@ const new_landlord = async (req, res) => {
   });
   if (email) {
     res.send({ data: "email already exists", status: false });
-  }else{
+  } else {
     const landlord = new LandLord({
       name: req.body.name,
       hostel: req.body.hostel,
@@ -93,7 +96,7 @@ const new_landlord = async (req, res) => {
         status: true,
         data: "Hostel Owner Added",
         user: save_added_owner,
-        role: "landlord"
+        role: "landlord",
       });
     } catch (error) {
       res.send({
@@ -103,14 +106,12 @@ const new_landlord = async (req, res) => {
       });
     }
   }
-} 
- 
- 
+};
 
 // the controller that gets all hostel owners  for display
 const all_hostel_owners = async (req, res) => {
   try {
-    const hostel_owners = await HostelOwner.find({ confirmed: { $eq: true } });
+    const hostel_owners = await LandLord.find();
     res.send({ status: true, result: hostel_owners });
   } catch (error) {
     console.log(error);
