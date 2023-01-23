@@ -46,7 +46,7 @@ const user_login = async (req, res) => {
       $and: [{ password: req.body.password }, { email: req.body.email }],
     });
     if (current_user) {
-      res.send({ user: current_admin, status: true });
+      res.send({ user: current_user, status: true });
     } else {
       res.send({ status: false, data: "No matching details" });
     }

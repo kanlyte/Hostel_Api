@@ -202,19 +202,7 @@ const add_room = async (req, res) => {
     res.send({ data: "Room Exists ", status: false });
   }
 };
-//gets all rooms available and not available
-const all_rooms = async (req, res) => {
-  try {
-    const rooms = await Rooms.find();
-    res.send({
-      status: true,
-      result: rooms,
-    });
-  } catch (error) {
-    console.log(error);
-    res.send({ status: false, data: "An Error Occured", result: error });
-  }
-};
+
 
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
@@ -328,6 +316,13 @@ const book_room = async (req, res) => {
     });
     try {
       const save_booked_room = await booknow.save();
+
+     await Rooms.findOneAndUpdate({  $and: [
+        { booked: { $eq: false } },
+        { room_number: req.body.room_number },
+        { hostel_id: req.body.hostel_id },
+      ]}, { booked: true })
+
       res.send({
         status: true,
         result: save_booked_room,
@@ -396,6 +391,5 @@ module.exports = {
   delete_room,
   book_room,
   all_bookings,
-  all_rooms,
   update_booked,
 };

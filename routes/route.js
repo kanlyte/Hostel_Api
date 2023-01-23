@@ -23,7 +23,6 @@ const {
   edit_room,
   book_room,
   all_bookings,
-  all_rooms,
   update_booked,
 } = require("../controllers/hostel");
 const { owner_login, owner_hostels, landlord_rooms } = require("../controllers/landlord");
@@ -39,7 +38,7 @@ const allOwners = router.get("/allOwners", all_hostel_owners);
 
 // user routes
 const registeruser = router.post("/newuser", register_user);
-const userlogin = router.post("/user", user_login);
+const userlogin = router.post("/login", user_login);
 
 //hostel owner login
 const ownerlogin = router.post("/hostelowner", owner_login);
@@ -53,7 +52,7 @@ const pendinghostel = router.get("/pendinghostel", pending_hostel);
 const edithostel = router.put("/edit/:id", edit_hostel);
 const confirmedhostel = router.get("/confirmedhostel", confirmed_hostel);
 const deletehostel = router.delete("/deletehostel/:id", delete_hostel);
-const onehostel = router.get("/onehostel/:id", one_hostel);
+const onehostel = router.get("/hostel/:id", one_hostel);
 const allhostel = router.get("/allhostels", all_hostel);
 
 //routes for rooms
@@ -96,47 +95,6 @@ module.exports = {
   addbooking,
   landlordrooms,
   getbookings,
-  allrooms,
   updatebooked,
 };
 
-// "result": [
-//   {
-//       "hostel_id": "635ece58c52f478f1d7cc539",
-//       "room_type": "Single",
-//       "room_number": "7",
-//       "room_fee": "350000",
-//       "booked": false,
-//       "hostel_landlord": "634a9e1ea081360018fd294c",
-//       "date": "2022-11-09T06:20:04.825Z",
-//       "id": "636b4694ad2de8766a81e722"
-//   },
-//   {
-//       "hostel_id": "635ece58c52f478f1d7cc539",
-//       "room_type": "Double",
-//       "room_number": "33",
-//       "room_fee": "4300000",
-//       "booked": false,
-//       "hostel_landlord": "634a9e1ea081360018fd294c",
-//       "date": "2022-11-09T06:21:28.064Z",
-//       "id": "636b46e8ad2de8766a81e726"
-//   },
-//   {
-//       "hostel_id": "635ece58c52f478f1d7cc539",
-//       "room_type": "Single",
-//       "room_number": "3",
-//       "room_fee": "300000",
-//       "booked": false,
-//       "hostel_landlord": "634a9e1ea081360018fd294c",
-//       "date": "2022-11-09T06:21:45.105Z",
-//       "id": "636b46f9ad2de8766a81e72a"
-//   }
-
-// {
-//     "hostel_id":"635ece58c52f478f1d7cc539",
-//     "name":"Gaston",
-//     "telephone_number":"089586",
-//     "room_number":"33",
-//     "email":"g@gmail.com",
-//     "level":"Undergraduate"
-// }
