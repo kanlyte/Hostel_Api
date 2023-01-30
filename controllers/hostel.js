@@ -299,10 +299,13 @@ const book_room = async (req, res) => {
     //checking whether the room exists in the particular hostel
     $and: [
       { booked: { $eq: false } },
-      { room_number: req.body.room_number },
+      { room_id: req.body.room_id },
       { hostel_id: req.body.hostel_id },
     ],
   });
+  // console.log(req.body.room_number);
+  // console.log(myroom);
+
   if (myroom) {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
@@ -313,6 +316,8 @@ const book_room = async (req, res) => {
       room_number: parseInt(req.body.room_number),
       email: req.body.email,
       level: req.body.level,
+      type_of_entry: req.body.type_of_entry,
+      location: req.body.location,
       user_request: true,
     });
 
