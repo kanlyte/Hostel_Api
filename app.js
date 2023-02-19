@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.send("This is an api for my app.");
 });
+//send email
 
 //user apis
 app.use("api/v6/", registeruser);

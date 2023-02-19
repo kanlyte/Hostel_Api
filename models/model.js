@@ -172,6 +172,9 @@ const LandLord = new mongoose.model("landlord", landlordSchema);
 
 //model for booking a room
 const bookingRoomSchema = new mongoose.Schema({
+  hostel_id: {
+    type: String,
+  },
   name: {
     type: String,
   },
@@ -191,6 +194,12 @@ const bookingRoomSchema = new mongoose.Schema({
     type: String,
   },
   level: {
+    type: String,
+  },
+  type_of_entry: {
+    type: String,
+  },
+  location: {
     type: String,
   },
   user_request: {
