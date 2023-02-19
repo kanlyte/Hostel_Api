@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { Hostel } = require("./models/model");
+const nodemailer = require("nodemailer");
 const {
   addhostel,
   registeruser,
@@ -32,7 +33,7 @@ const {
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
-const port = process.env.PORT || 5058;
+const port = process.env.PORT || 5055;
 
 app.use(cors()); //i also put cors like to access cross origin sites
 app.use(express.json());
@@ -64,7 +65,6 @@ app.use("api/v6/", userlogin);
 //hostel owner apis
 app.use("api/v6/", ownerlogin);
 app.use("api/v6/", ownerhostels);
-
 
 //admin apis
 app.use("/api/v6/", registeradmin);

@@ -1,5 +1,6 @@
 const { Hostel, LandLord, Rooms, Bookings } = require("../models/model");
 const router = require("express").Router();
+const nodemailer = require("nodemailer");
 
 //the controller for adding a new hostel
 const add_hostel = async (req, res) => {
@@ -185,7 +186,6 @@ const add_room = async (req, res) => {
       room_description: req.body.room_description,
       booked: false,
       hostel_landlord: req.body.landlord,
-
     });
     try {
       const save_added_room = await room.save();
@@ -202,7 +202,6 @@ const add_room = async (req, res) => {
     res.send({ data: "Room Exists ", status: false });
   }
 };
-
 
 //gets all rooms that are not taken
 const availabe_rooms = async (req, res) => {
@@ -329,6 +328,45 @@ const book_room = async (req, res) => {
         { _id: save_booked_room.room_id },
         { $set: { booked: true } }
       );
+
+      //sending a message using node mailer.
+
+      //node mailer trial one
+
+      let mailTransporter = nodemailer.createTransport({
+        service: "outlook",
+        auth: {
+          user: "kanlyteug@outlook.com",
+          pass: "kanlyte@2023",
+        },
+      });
+
+      let details = {
+        from: "kanlyteug@outlook.com",
+        to: save_booked_room.email,
+        subject: "Beacon hostels Booking Team.",
+        text: `Hello:${save_booked_room.name} 
+         We notice that you have booked a room with Beacon Hostels .
+         
+         The following are the details of the room that you have booked.
+         Hostel name : ${save_booked_room.name_of_hostel} 
+         Room number: ${save_booked_room.room_number} 
+         Rent fee: Ugshs: 500,000
+        Our beacon hostel team shall call you to keep you on track of your bookings. <br />
+        Thanks for booking with us.
+        
+        Download our lyte app from google playstore
+       for your android phone to keep ckecking on your bookings.
+         `,
+      };
+      mailTransporter.sendMail(details, (err) => {
+        if (err) {
+          console.log("got an error", err);
+        } else {
+          console.log("you got it right.");
+        }
+      });
+
       res.send({
         status: true,
         result: save_booked_room,
@@ -347,12 +385,7 @@ const book_room = async (req, res) => {
 const all_bookings = async (req, res) => {
   try {
     const bookings = await Bookings.find({
-      //  booked: { $eq: false }
-      // $and: [{ booked: { $eq: true } },
-      // {
       user_request: { $eq: true },
-      // }
-      // ],
     });
     res.send({ status: true, result: bookings });
   } catch (error) {
@@ -360,7 +393,11 @@ const all_bookings = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+
 //deleting all bookings at once
+// this api is specifically for backend use..... do not render it in the front end
+// because it is more harmful to the data
+
 const delete_bookings = async (req, res) => {
   try {
     const all = await Bookings.find({ user_request: { $eq: true } });
