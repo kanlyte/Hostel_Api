@@ -56,4 +56,78 @@ const user_login = async (req, res) => {
   }
 };
 
-module.exports = { register_user, user_login };
+// route for editing user information
+const update_user = async (req, res) => {
+  try {
+    const current_user = await Users.findById(req.params.id);
+    const edit_user = await Users.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: {
+          full_name: req.body.full_name || current_user.full_name,
+          phone_number: req.body.phone_number || current_user.phone_number,
+          email: req.body.email || current_user.email,
+          password: req.body.password || current_user.password,
+        },
+      }
+    );
+    res.send({
+      status: true,
+      data: "user profile updated",
+      result: edit_user,
+    });
+  } catch (error) {
+    res.send({
+      status: false,
+      data: "Update failed",
+    });
+  }
+};
+
+//route for deleting users profile
+const delete_user = async (req, res) => {
+  try {
+    const current_user = await Users.findById(req.params.id);
+    if (current_user) {
+      const remove_user = await Users.deleteOne({
+        _id: req.params.id,
+      });
+      res.send({
+        status: true,
+        data: "Account Deleted",
+        result: remove_user,
+      });
+    } else {
+      res.send({
+        status: false,
+        data: "User not Found",
+      });
+    }
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//route for displaying all user
+const all_users = async (req, res) => {
+  try {
+    const users = await Users.find();
+    res.send({
+      status: true,
+      result: users,
+      data: "All rooms available",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+module.exports = {
+  register_user,
+  user_login,
+  delete_user,
+  update_user,
+  all_users,
+};
