@@ -281,7 +281,7 @@ const delete_room = async (req, res) => {
       });
     } else {
       res.send({
-        status: true,
+        status: false,
         data: "room not Found",
       });
     }
