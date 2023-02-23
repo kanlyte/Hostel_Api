@@ -42,14 +42,12 @@ const register_user = async (req, res) => {
 //user login
 const user_login = async (req, res) => {
   try {
-    const current_user = await Users.find({
+    const current_user = await Users.findOne({
       $and: [{ password: req.body.password }, { email: req.body.email }],
     });
-    if (current_user) {
-      res.send({ user: current_user, status: true });
-    } else {
-      res.send({ status: false, data: "No matching details" });
-    }
+    current_user
+      ? res.send({ user: current_user, status: true })
+      : res.send({ status: false, data: "Wrong Details" });
   } catch (error) {
     console.log(error);
     res.send({ status: false, data: "An Error Occured", result: error });
