@@ -115,7 +115,7 @@ const all_users = async (req, res) => {
     res.send({
       status: true,
       result: users,
-      data: "All rooms available",
+      data: "All users available",
     });
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
