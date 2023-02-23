@@ -175,6 +175,9 @@ const bookingRoomSchema = new mongoose.Schema({
   hostel_id: {
     type: String,
   },
+  user_id: {
+    type: String,
+  },
   name: {
     type: String,
   },

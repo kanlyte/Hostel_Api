@@ -224,6 +224,58 @@ const booked_rooms = async (req, res) => {
   }
 };
 
+/*
+
+controller for converting booked false to true.
+ This shall help incase a user doesn't use the system to book the room
+ but instead gets a room manually. The manager will update the system through triggering this function.
+
+*/
+//changes status to true
+const change_room_status_true = async (req, res) => {
+  try {
+    await Rooms.findById(req.params.id);
+    const room = await Rooms.updateOne(
+      { _id: req.params.id },
+      { $set: { booked: true } }
+    );
+
+    res.send({
+      status: true,
+      data: "status updated",
+      result: room,
+    });
+  } catch (error) {
+    res.send({
+      data: "Error occured",
+      status: false,
+      result: error,
+    });
+  }
+};
+//changes status to false
+const change_room_status_false = async (req, res) => {
+  try {
+    await Rooms.findById(req.params.id);
+    const room = await Rooms.updateOne(
+      { _id: req.params.id },
+      { $set: { booked: false } }
+    );
+
+    res.send({
+      status: true,
+      data: "status updated",
+      result: room,
+    });
+  } catch (error) {
+    res.send({
+      data: "Error occured",
+      status: false,
+      result: error,
+    });
+  }
+};
+
 //controller for editing a room
 const edit_room = async (req, res) => {
   try {
@@ -324,6 +376,7 @@ const book_room = async (req, res) => {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
       room_id: req.body.room_id,
+      user_id: req.body.user_id,
       name: req.body.name,
       telephone_number: parseInt(req.body.telephone_number),
       name_of_hostel: req.body.name_of_hostel,
@@ -489,4 +542,6 @@ module.exports = {
   update_booked,
   delete_bookings,
   one_room,
+  change_room_status_false,
+  change_room_status_true,
 };
