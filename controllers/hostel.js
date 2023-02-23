@@ -369,13 +369,14 @@ const book_room = async (req, res) => {
       { hostel_id: req.body.hostel_id },
     ],
   });
-  // console.log(req.body.room_number);
+  console.log(req.body);
   // console.log(myroom);
 
   if (myroom) {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
       room_id: req.body.room_id,
+      user_id: req.body.user_id,
       name: req.body.name,
       telephone_number: parseInt(req.body.telephone_number),
       name_of_hostel: req.body.name_of_hostel,
@@ -406,7 +407,9 @@ const book_room = async (req, res) => {
       //node mailer trial one
 
       let mailTransporter = nodemailer.createTransport({
-        service: "outlook",
+        host: "smtp.outlook.com",
+        secureConnection: false,
+        // port: 5055,
         auth: {
           user: "kanlyteug@outlook.com",
           pass: "kanlyte@2023",
