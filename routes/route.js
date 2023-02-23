@@ -25,6 +25,9 @@ const {
   all_bookings,
   update_booked,
   delete_bookings,
+  change_room_status_false,
+  change_room_status_true,
+  one_room,
 } = require("../controllers/hostel");
 const {
   owner_login,
@@ -79,7 +82,9 @@ const availaberooms = router.get("/availablerooms", availabe_rooms);
 const bookedrooms = router.get("/bookedrooms", booked_rooms);
 const deleteroom = router.delete("/deleteroom/:id", delete_room);
 const editroom = router.put("/editroom:/id", edit_room);
-const oneroom = router.put("/room/one:/id", edit_room);
+const oneroom = router.get("/room/one:/id", one_room);
+const statusfalse = router.put("/room/false/:id", change_room_status_false);
+const statustrue = router.put("/room/true/:id", change_room_status_true);
 
 //routes for bookings
 const addbooking = router.post("/book", book_room);
@@ -121,4 +126,7 @@ module.exports = {
   deleteuser,
   allusers,
   updateuser,
+  oneroom,
+  statusfalse,
+  statustrue,
 };
