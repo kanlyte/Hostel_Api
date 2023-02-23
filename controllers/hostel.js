@@ -468,6 +468,21 @@ const all_bookings = async (req, res) => {
   }
 };
 
+//geting booking by id of the user
+
+const user_booking = async (req, res) => {
+  try {
+    const booking = await Bookings.findById(req.params.id);
+    res.send({
+      status: true,
+      result: booking,
+      data: "My bookings",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 //deleting all bookings at once
 // this api is specifically for backend use..... do not render it in the front end
 // because it is more harmful to the data
