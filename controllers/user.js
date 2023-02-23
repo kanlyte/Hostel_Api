@@ -122,10 +122,25 @@ const all_users = async (req, res) => {
   }
 };
 
+//getting one user
+const one_user = async (req, res) => {
+  try {
+    const user = await Users.findById(req.params.id);
+    res.send({
+      status: true,
+      result: user,
+      data: "My user",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 module.exports = {
   register_user,
   user_login,
   delete_user,
   update_user,
   all_users,
+  one_user,
 };
