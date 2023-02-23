@@ -268,6 +268,21 @@ const all_rooms = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+
+//getting one room
+const one_room = async (req, res) => {
+  try {
+    const room = await Rooms.findById(req.params.id);
+    res.send({
+      status: true,
+      result: room,
+      data: "My room",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 //delets a given room by id
 const delete_room = async (req, res) => {
   try {
@@ -348,7 +363,8 @@ const book_room = async (req, res) => {
 
       let details = {
         from: "kanlyteug@outlook.com",
-        to: save_booked_room.email,
+        // to: save_booked_room.email,
+        to: "aggipeter25@gmail.com",
         subject: "Beacon hostels Booking Team.",
         text: `Hello:${save_booked_room.name} 
          We notice that you have booked a room with Beacon Hostels .
@@ -357,7 +373,7 @@ const book_room = async (req, res) => {
          Hostel name : ${save_booked_room.name_of_hostel} 
          Room number: ${save_booked_room.room_number} 
          Rent fee: Ugshs: 500,000
-        Our beacon hostel team shall call you to keep you on track of your bookings. <br />
+        Our beacon hostel team shall call you to keep you on track of your bookings. 
         Thanks for booking with us.
         
         Download our lyte app from google playstore
@@ -366,8 +382,9 @@ const book_room = async (req, res) => {
       };
       mailTransporter.sendMail(details, (err) => {
         if (err) {
-          console.log("got an error", err);
+          console.log("got an error");
         } else {
+          // res.send(details);
           console.log("you got it right.");
         }
       });
@@ -469,4 +486,5 @@ module.exports = {
   all_bookings,
   update_booked,
   delete_bookings,
+  one_room,
 };

@@ -37,6 +37,7 @@ const {
   delete_user,
   update_user,
   all_users,
+  one_user,
 } = require("../controllers/user");
 
 //admin  routes
@@ -55,6 +56,7 @@ const userlogin = router.post("/login", user_login);
 const deleteuser = router.delete("/user/:id", delete_user);
 const updateuser = router.put("/user/:id", update_user);
 const allusers = router.get("/users", all_users);
+const oneuser = router.get("/user/one/:id", one_user);
 
 //hostel owner login
 const ownerlogin = router.post("/hostelowner", owner_login);
@@ -77,6 +79,7 @@ const availaberooms = router.get("/availablerooms", availabe_rooms);
 const bookedrooms = router.get("/bookedrooms", booked_rooms);
 const deleteroom = router.delete("/deleteroom/:id", delete_room);
 const editroom = router.put("/editroom:/id", edit_room);
+const oneroom = router.put("/room/one:/id", edit_room);
 
 //routes for bookings
 const addbooking = router.post("/book", book_room);
