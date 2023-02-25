@@ -73,10 +73,16 @@ const RoomSchema = new mongoose.Schema({
   landlord_id: {
     type: String,
   },
+  hostel_name: {
+    type: String,
+  },
   room_type: {
     type: String,
   },
   room_number: {
+    type: String,
+  },
+  room_description: {
     type: String,
   },
   room_fee: {
@@ -86,9 +92,7 @@ const RoomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  hostel_landlord: {
-    type: String,
-  },
+
   date: {
     type: Date,
     default: Date.now,
