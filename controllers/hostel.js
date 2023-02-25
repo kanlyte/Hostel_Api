@@ -475,7 +475,7 @@ const all_bookings = async (req, res) => {
 
 const user_booking = async (req, res) => {
   try {
-    const booking = await Bookings.findById(req.params.id);
+    const booking = await Bookings.findById(req.params.user_id);
     res.send({
       status: true,
       result: booking,
@@ -559,4 +559,5 @@ module.exports = {
   one_room,
   change_room_status_false,
   change_room_status_true,
+  user_booking,
 };

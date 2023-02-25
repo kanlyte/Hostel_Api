@@ -91,6 +91,7 @@ const addbooking = router.post("/book", book_room);
 const getbookings = router.get("/allbookings", all_bookings);
 const updatebooked = router.put("/booked/:id", update_booked);
 const deleteallbookings = router.delete("/deletebookings", delete_bookings);
+const userbooking = router.get("/booking/user/:id", delete_bookings);
 
 //routes for hostel owners
 
