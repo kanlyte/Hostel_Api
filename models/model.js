@@ -182,10 +182,13 @@ const bookingRoomSchema = new mongoose.Schema({
   user_id: {
     type: String,
   },
+    landlord_id: {
+    type: String,
+  },
   name: {
     type: String,
   },
-  telphone_number: {
+  telephone_number: {
     type: Number,
   },
   name_of_hostel: {
