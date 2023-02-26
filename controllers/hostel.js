@@ -479,7 +479,7 @@ const all_bookings = async (req, res) => {
 
 const user_booking = async (req, res) => {
   try {
-    const booking = await Bookings.findById(req.params.user_id);
+    const booking = await Bookings.findOne(req.user_id);
     res.send({
       status: true,
       result: booking,
