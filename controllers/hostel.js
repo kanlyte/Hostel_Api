@@ -289,16 +289,17 @@ const edit_room = async (req, res) => {
       {
         $set: {
           room_type: req.body.room_type || current_room.room_type,
-          room_description: req.body.room_description || current_room.room_description,
+          room_description:
+            req.body.room_description || current_room.room_description,
           room_number:
             parseInt(req.body.room_number) || current_room.room_number,
           room_fee: parseInt(req.body.room_fee) || current_room.room_fee,
           confirmed: true,
 
           // hostel images need to be acted upon
-          room_image: req.body.room_image
-            ? JSON.stringify(req.body.room_image)
-            : current_image.room_image,
+          // room_image: req.body.room_image
+          //   ? JSON.stringify(req.body.room_image)
+          //   : current_image.room_image,
         },
       }
     );
@@ -307,8 +308,7 @@ const edit_room = async (req, res) => {
       data: "room updated",
       result: updated_room,
     });
-  } catch {
-    console.log(error);
+  } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
