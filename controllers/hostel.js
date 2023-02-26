@@ -289,6 +289,7 @@ const edit_room = async (req, res) => {
       {
         $set: {
           room_type: req.body.room_type || current_room.room_type,
+          room_description: req.body.room_description || current_room.room_description,
           room_number:
             parseInt(req.body.room_number) || current_room.room_number,
           room_fee: parseInt(req.body.room_fee) || current_room.room_fee,
@@ -377,6 +378,7 @@ const book_room = async (req, res) => {
   if (myroom) {
     const booknow = new Bookings({
       hostel_id: req.body.hostel_id,
+      landlord_id: req.body.landlord_id,
       room_id: req.body.room_id,
       user_id: req.body.user_id,
       name: req.body.name,
