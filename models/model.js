@@ -115,7 +115,7 @@ const registerUserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
- 
+
   register_date: {
     type: Date,
     default: Date.now,
@@ -182,7 +182,7 @@ const bookingRoomSchema = new mongoose.Schema({
   user_id: {
     type: String,
   },
-    landlord_id: {
+  landlord_id: {
     type: String,
   },
   name: {
@@ -215,6 +215,10 @@ const bookingRoomSchema = new mongoose.Schema({
   user_request: {
     type: Boolean,
     default: true,
+  },
+  booking_date: {
+    type: Date,
+    default: Date.now,
   },
 });
 id(bookingRoomSchema);
