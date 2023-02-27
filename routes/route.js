@@ -35,6 +35,8 @@ const {
   owner_login,
   owner_hostels,
   landlord_rooms,
+  landlord_request,
+  all_landlord_requests,
 } = require("../controllers/landlord");
 const {
   register_user,
@@ -54,6 +56,11 @@ const newlandlord = router.post("/newlandlord", new_landlord);
 const deleteOwner = router.delete("/deleteowner", delete_hostel);
 const resetOwner = router.post("/resetowmer", edit_hostel_owner);
 const allOwners = router.get("/allowners", all_hostel_owners);
+const landlordrequest = router.post("/request/landlord", landlord_request);
+const alllandlordrequest = router.get(
+  "/alllandlordrequests",
+  all_landlord_requests
+);
 
 // user routes
 const registeruser = router.post("/newuser", register_user);
@@ -135,4 +142,6 @@ module.exports = {
   statustrue,
   userbooking,
   searchhostel,
+  landlordrequest,
+  alllandlordrequest,
 };

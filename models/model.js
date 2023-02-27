@@ -174,6 +174,33 @@ const landlordSchema = new mongoose.Schema({
 id(landlordSchema);
 const LandLord = new mongoose.model("landlord", landlordSchema);
 
+//model for registering a new hostel owner
+const landlordRequestSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+
+  request_date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+id(landlordRequestSchema);
+const LandLordRequest = new mongoose.model(
+  "landlordRequests",
+  landlordRequestSchema
+);
+
 //model for booking a room
 const bookingRoomSchema = new mongoose.Schema({
   hostel_id: {
@@ -224,4 +251,12 @@ const bookingRoomSchema = new mongoose.Schema({
 id(bookingRoomSchema);
 const Bookings = new mongoose.model("bookings", bookingRoomSchema);
 
-module.exports = { Hostel, Users, Admin, LandLord, Rooms, Bookings };
+module.exports = {
+  Hostel,
+  Users,
+  Admin,
+  LandLord,
+  Rooms,
+  Bookings,
+  LandLordRequest,
+};
