@@ -168,6 +168,33 @@ const delete_hostel = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+/*
+Here, this route route shall help, us in 
+searching for hostels basing on hostel name 
+in the future we shall need to enable seaching
+ using different fields otherthan user name 
+ eg prices, location and others to ease searching 
+ by users.
+
+*/
+
+const search_hostel = async (req, res) => {
+  try {
+    const search = await Hostel.find({
+      $or: [{ hostel_name: { $regex: req.params.key } }],
+    });
+    res.send({
+      status: true,
+      data: "your searches",
+      result: search,
+    });
+  } catch (error) {
+    res.send({
+      data: "error",
+      result: error,
+    });
+  }
+};
 
 //Adding a new room
 const add_room = async (req, res) => {
@@ -479,7 +506,7 @@ const all_bookings = async (req, res) => {
 
 const user_booking = async (req, res) => {
   try {
-    const booking = await Bookings.findOne(req.user_id);
+    const booking = await Bookings.find(req.user_id);
     res.send({
       status: true,
       result: booking,
@@ -564,4 +591,5 @@ module.exports = {
   change_room_status_false,
   change_room_status_true,
   user_booking,
+  search_hostel,
 };
