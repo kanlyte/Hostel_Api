@@ -30,6 +30,7 @@ const {
   one_room,
   user_booking,
   search_hostel,
+  rooms_for_landlord,
 } = require("../controllers/hostel");
 const {
   owner_login,
@@ -95,6 +96,10 @@ const editroom = router.put("/editroom/:id", edit_room);
 const oneroom = router.get("/room/one/:id", one_room);
 const statusfalse = router.put("/room/false/:id", change_room_status_false);
 const statustrue = router.put("/room/true/:id", change_room_status_true);
+const roomsforlandlord = router.get(
+  "/rooms/landlord/:landlord_id",
+  rooms_for_landlord
+);
 
 //routes for bookings
 const addbooking = router.post("/book", book_room);
@@ -144,4 +149,5 @@ module.exports = {
   searchhostel,
   landlordrequest,
   alllandlordrequest,
+  roomsforlandlord,
 };

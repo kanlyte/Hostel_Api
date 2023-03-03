@@ -364,6 +364,19 @@ const one_room = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+//getting rooms by landlord id
+const rooms_for_landlord = async (req, res) => {
+  try {
+    const rooms = await Rooms.findById(req.params.landlord_id);
+    res.send({
+      status: true,
+      result: rooms,
+      data: "My rooms",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 
 //delets a given room by id
 const delete_room = async (req, res) => {
@@ -592,4 +605,5 @@ module.exports = {
   change_room_status_true,
   user_booking,
   search_hostel,
+  rooms_for_landlord,
 };
