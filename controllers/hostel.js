@@ -365,16 +365,30 @@ const one_room = async (req, res) => {
   }
 };
 //getting rooms by landlord id
-const rooms_for_landlord = async (req, res) => {
+const rooms_for_landlord_one = async (req, res) => {
   try {
-    const rooms = await Rooms.findById(req.params.landlord_id);
-    res.send({
-      status: true,
-      result: rooms,
-      data: "My rooms",
+    const id = await Rooms.find({
+      landlord_id: req.params.landlord_id,
     });
+    if (!id) {
+      res.send({
+        status: false,
+        data: "No rooms for this landlord",
+      });
+    } else {
+      res.send({
+        result: id,
+      });
+
+      // res.send({
+      //   status: true,
+      //   result: id,
+      //   data: "My rooms",
+      // });
+    }
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
+    console.log(error);
   }
 };
 
@@ -605,5 +619,5 @@ module.exports = {
   change_room_status_true,
   user_booking,
   search_hostel,
-  rooms_for_landlord,
+  rooms_for_landlord_one,
 };

@@ -30,7 +30,7 @@ const {
   one_room,
   user_booking,
   search_hostel,
-  rooms_for_landlord,
+  rooms_for_landlord_one,
 } = require("../controllers/hostel");
 const {
   owner_login,
@@ -98,7 +98,7 @@ const statusfalse = router.put("/room/false/:id", change_room_status_false);
 const statustrue = router.put("/room/true/:id", change_room_status_true);
 const roomsforlandlord = router.get(
   "/rooms/landlord/:landlord_id",
-  rooms_for_landlord
+  rooms_for_landlord_one
 );
 
 //routes for bookings
