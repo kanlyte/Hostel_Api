@@ -367,24 +367,16 @@ const one_room = async (req, res) => {
 //getting rooms by landlord id
 const rooms_for_landlord_one = async (req, res) => {
   try {
-    const id = await Rooms.find({
+    const rooms = await Rooms.find({
       landlord_id: req.params.landlord_id,
     });
-    if (!id) {
+    if (!rooms) {
       res.send({
         status: false,
         data: "No rooms for this landlord",
       });
     } else {
-      res.send({
-        result: id,
-      });
-
-      // res.send({
-      //   status: true,
-      //   result: id,
-      //   data: "My rooms",
-      // });
+      res.send(rooms);
     }
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
@@ -533,12 +525,37 @@ const all_bookings = async (req, res) => {
 
 const user_booking = async (req, res) => {
   try {
-    const booking = await Bookings.find(req.user_id);
-    res.send({
-      status: true,
-      result: booking,
-      data: "My bookings",
+    const booking = await Bookings.find({ user_id: req.params.user_id });
+    if (!booking) {
+      res.send({ status: false, data: "No rooms ", result: error });
+    } else {
+      res.send({
+        status: true,
+        result: booking,
+        data: "My bookings",
+      });
+    }
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//geting booking by id of the lanlord
+
+const landlord_booking = async (req, res) => {
+  try {
+    const booking = await Bookings.find({
+      landlord_id: req.params.landlord_id,
     });
+    if (!booking) {
+      res.send({ status: false, data: "No rooms ", result: error });
+    } else {
+      res.send({
+        status: true,
+        result: booking,
+        data: "My bookings",
+      });
+    }
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
