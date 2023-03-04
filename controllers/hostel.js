@@ -376,7 +376,11 @@ const rooms_for_landlord = async (req, res) => {
         data: "No rooms for this landlord",
       });
     } else {
-      res.send(rooms);
+      res.send({
+        status:true,
+        data:"awurew",
+        result:rooms
+      });
     }
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
