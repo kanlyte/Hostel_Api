@@ -33,6 +33,7 @@ const {
   rooms_for_landlord_one,
   rooms_for_landlord_true,
   rooms_for_landlord_false,
+  rooms_for_landlord,
 } = require("../controllers/hostel");
 const {
   owner_login,
@@ -98,6 +99,10 @@ const editroom = router.put("/editroom/:id", edit_room);
 const oneroom = router.get("/room/one/:id", one_room);
 const statusfalse = router.put("/room/false/:id", change_room_status_false);
 const statustrue = router.put("/room/true/:id", change_room_status_true);
+const roomsforlandlord = router.get(
+  "/rooms/landlord/:landlord_id",
+  rooms_for_landlord
+);
 const roomsforlandlordtrue = router.get(
   "/rooms/landlord/true/:landlord_id",
   rooms_for_landlord_true
@@ -159,6 +164,7 @@ module.exports = {
   searchhostel,
   landlordrequest,
   alllandlordrequest,
+  roomsforlandlord,
   roomsforlandlordtrue,
   roomsforlandlordfalse,
 };
