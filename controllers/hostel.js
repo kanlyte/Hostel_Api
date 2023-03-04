@@ -384,28 +384,45 @@ const rooms_for_landlord = async (req, res) => {
   }
 };
 //getting rooms by landlord id given they are not booked
+// const rooms_for_landlord_false = async (req, res) => {
+//   try {
+//     const bookedfalse = await Rooms.find({
+//       booked: { $eq: false },
+//     });
+//     if (bookedfalse) {
+//       const rooms = await Rooms.find({
+//         landlord_id: req.params.landlord_id,
+//       });
+//       if (!rooms) {
+//         res.send({
+//           status: false,
+//           data: "No rooms for this landlord",
+//         });
+//       } else {
+//         res.send(rooms);
+//       }
+//     } else {
+//       res.send({ status: false, data: "No ", result: error });
+//     }
+//   } catch (error) {
+//     res.send({ status: false, data: "An Error Occured", result: error });
+//     console.log(error);
+//   }
+// };
+//getting rooms by landlord id given they are  false
 const rooms_for_landlord_false = async (req, res) => {
   try {
     const bookedfalse = await Rooms.find({
       booked: { $eq: false },
     });
+
     if (bookedfalse) {
-      const rooms = await Rooms.find({
-        landlord_id: req.params.landlord_id,
-      });
-      if (!rooms) {
-        res.send({
-          status: false,
-          data: "No rooms for this landlord",
-        });
-      } else {
-        res.send(rooms);
-      }
+      res.send(bookedfalse);
     } else {
-      res.send({ status: false, data: "No ", result: error });
+      res.send({ status: false, data: "An Error Occured", result: error });
     }
   } catch (error) {
-    res.send({ status: false, data: "An Error Occured", result: error });
+    res.send({ status: false, data: "An Erroedr Occured", result: error });
     console.log(error);
   }
 };
@@ -415,23 +432,14 @@ const rooms_for_landlord_true = async (req, res) => {
     const bookedtrue = await Rooms.find({
       booked: { $eq: true },
     });
+
     if (bookedtrue) {
-      const rooms = await Rooms.find({
-        landlord_id: req.params.landlord_id,
-      });
-      if (!rooms) {
-        res.send({
-          status: false,
-          data: "No rooms for this landlord",
-        });
-      } else {
-        res.send(rooms);
-      }
+      res.send(bookedtrue);
     } else {
       res.send({ status: false, data: "An Error Occured", result: error });
     }
   } catch (error) {
-    res.send({ status: false, data: "An Error Occured", result: error });
+    res.send({ status: false, data: "An Erroedr Occured", result: error });
     console.log(error);
   }
 };
