@@ -118,13 +118,26 @@ const all_hostel_owners = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+//getting hostel owner by id
+const one_owner = async (req, res) => {
+  try {
+    const owner = await LandLord.findById(req.params.id);
+    res.send({
+      status: true,
+      result: owner,
+      data: "My owner",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 
 //delets a given hostelowner by id
 const delete_hostel_owner = async (req, res) => {
   try {
-    const current_hostel_owner = await HostelOwner.findById(req.params.id);
+    const current_hostel_owner = await LandLord.findById(req.params.id);
     if (current_hostel_owner) {
-      const removed_hostel_owner = await HostelOwner.deleteOne({
+      const removed_hostel_owner = await LandLord.deleteOne({
         _id: req.params.id,
       });
       res.send({
@@ -147,8 +160,8 @@ const delete_hostel_owner = async (req, res) => {
 //controller for editing hostel owners
 const edit_hostel_owner = async (req, res) => {
   try {
-    const current_hostel_owner = await HostelOwner.findById(req.params.id);
-    const updated_hostel_owner = await HostelOwner.updateOne(
+    const current_hostel_owner = await LandLord.findById(req.params.id);
+    const updated_hostel_owner = await LandLord.updateOne(
       {
         _id: req.params.id,
       },
@@ -181,4 +194,5 @@ module.exports = {
   new_landlord,
   all_hostel_owners,
   edit_hostel_owner,
+  one_owner,
 };
