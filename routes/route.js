@@ -59,7 +59,7 @@ const loginadmin = router.post("/loginadmin", admin_login);
 //landlord / hostel owner routes
 const newlandlord = router.post("/newlandlord", new_landlord);
 const deleteOwner = router.delete("/deleteowner", delete_hostel);
-const resetOwner = router.put("/resetowmer/:id", edit_hostel_owner);
+const resetOwner = router.put("/resetowner/:id", edit_hostel_owner);
 const allOwners = router.get("/allowners", all_hostel_owners);
 const oneOwner = router.get("/owner/one/:id", one_owner);
 const landlordrequest = router.post("/request/landlord", landlord_request);
