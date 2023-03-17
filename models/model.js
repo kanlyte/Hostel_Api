@@ -174,7 +174,7 @@ const landlordSchema = new mongoose.Schema({
 id(landlordSchema);
 const LandLord = new mongoose.model("landlord", landlordSchema);
 
-//model for registering a new hostel owner
+//model for landlord requests
 const landlordRequestSchema = new mongoose.Schema({
   name: {
     type: String,
