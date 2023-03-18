@@ -377,9 +377,9 @@ const rooms_for_landlord = async (req, res) => {
       });
     } else {
       res.send({
-        status:true,
-        data:"awurew",
-        result:rooms
+        status: true,
+        data: "awurew",
+        result: rooms,
       });
     }
   } catch (error) {
@@ -521,32 +521,32 @@ const book_room = async (req, res) => {
       //node mailer trial one
 
       let mailTransporter = nodemailer.createTransport({
-        host: "smtp.outlook.com",
-        secureConnection: false,
-        // port: 5055,
+        service: "gmail",
         auth: {
-          user: "kanlyteug@outlook.com",
-          pass: "kanlyte@2023",
+          user: "nahuriragaston@gmail.com",
+          pass: "xwvubhomgmnangje",
         },
       });
 
       let details = {
-        from: "kanlyteug@outlook.com",
-        // to: save_booked_room.email,
-        to: "aggipeter25@gmail.com",
-        subject: "Beacon hostels Booking Team.",
+        from: "nahuriragaston@gmail.com",
+        to: save_booked_room.email,
+        // to: "aggipeter25@gmail.com",
+        subject: "Beacon hostels Team.",
         text: `Hello:${save_booked_room.name} 
          We notice that you have booked a room with Beacon Hostels .
          
          The following are the details of the room that you have booked.
          Hostel name : ${save_booked_room.name_of_hostel} 
          Room number: ${save_booked_room.room_number} 
-         Rent fee: Ugshs: 500,000
-        Our beacon hostel team shall call you to keep you on track of your bookings. 
+         
+         More information about the room booked is displayed in your user accout.
+         
+        Our beacon hostels team shall call you to keep you on track of your bookings. 
         Thanks for booking with us.
         
         Download our lyte app from google playstore
-       for your android phone to keep ckecking on your bookings.
+       for to keep track of your bookings.
          `,
       };
       mailTransporter.sendMail(details, (err) => {
