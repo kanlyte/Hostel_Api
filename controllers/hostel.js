@@ -523,30 +523,26 @@ const book_room = async (req, res) => {
       let mailTransporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "nahuriragaston@gmail.com",
-          pass: "xwvubhomgmnangje",
+          user: "beaconhostels@gmail.com",
+          pass: "wttdwlapdndotjtm",
+          // pass: "xwvubhomgmnangje",
         },
       });
 
       let details = {
-        from: "nahuriragaston@gmail.com",
+        from: "beaconhostels@gmail.com",
         to: save_booked_room.email,
         // to: "aggipeter25@gmail.com",
         subject: "Beacon hostels Team.",
         text: `Hello:${save_booked_room.name} 
          We notice that you have booked a room with Beacon Hostels .
-         
          The following are the details of the room that you have booked.
          Hostel name : ${save_booked_room.name_of_hostel} 
          Room number: ${save_booked_room.room_number} 
-         
          More information about the room booked is displayed in your user accout.
-         
-        Our beacon hostels team shall call you to keep you on track of your bookings. 
-        Thanks for booking with us.
-        
-        Download our lyte app from google playstore
-       for to keep track of your bookings.
+         Our beacon hostels team shall call you to keep you on track of your bookings. 
+         Thanks for booking with us.
+         Download our lyte app from google playstore for more about our services.
          `,
       };
       mailTransporter.sendMail(details, (err) => {
