@@ -22,7 +22,7 @@ const register_user = async (req, res) => {
   } else {
     const user = new Users({
       full_name: req.body.full_name,
-      phone_number: req.body.phone_number,
+      phone_number: parseInt(req.body.phone_number),
       email: req.body.email,
       password: req.body.password,
     });
