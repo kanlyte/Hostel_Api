@@ -30,6 +30,7 @@ const {
   allrooms,
   updatebooked,
   deleteallbookings,
+  newslettersubscription,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -97,6 +98,9 @@ app.use("api/v6/", getbookings);
 app.use("api/v6/", addbooking);
 app.use("api/v6/", updatebooked);
 app.use("api/v6/", deleteallbookings);
+
+//newsletter
+app.use("api/v6", newslettersubscription);
 
 //database connectivity
 ConnectDB();

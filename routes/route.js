@@ -50,6 +50,7 @@ const {
   update_user,
   all_users,
   one_user,
+  newsletter,
 } = require("../controllers/user");
 
 //admin  routes
@@ -114,6 +115,9 @@ const roomsforlandlordfalse = router.get(
   rooms_for_landlord_false
 );
 
+//routes for newsletter
+const newslettersubscription = router.post("/new/subscriber", newsletter);
+
 //routes for bookings
 const addbooking = router.post("/book", book_room);
 const getbookings = router.get("/allbookings", all_bookings);
@@ -170,4 +174,5 @@ module.exports = {
   roomsforlandlordtrue,
   roomsforlandlordfalse,
   oneOwner,
+  newslettersubscription,
 };

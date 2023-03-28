@@ -1,5 +1,5 @@
 // const router = require("express").Router();
-const { Users } = require("../models/model");
+const { Users, NewsLetter } = require("../models/model");
 
 /*
   Users have three routes:
@@ -136,6 +136,32 @@ const one_user = async (req, res) => {
   }
 };
 
+// newsletter post router
+const newsletter = async (req, res) => {
+  try {
+    const email_check = await NewsLetter.findOne({
+      email: { $eq: req.body.email },
+    });
+    if (email_check) {
+      res.send({
+        data: "Already subscribed to our news letter",
+        status: false,
+      });
+    } else {
+      const newSubscriber = new NewsLetter({
+        email: req.body.email,
+      });
+      const save_new = await newSubscriber.save();
+      res.send({
+        status: true,
+        data: "subscribed",
+        result: save_new,
+      });
+    }
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
 module.exports = {
   register_user,
   user_login,
@@ -143,4 +169,5 @@ module.exports = {
   update_user,
   all_users,
   one_user,
+  newsletter,
 };

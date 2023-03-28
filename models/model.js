@@ -107,7 +107,7 @@ const registerUserSchema = new mongoose.Schema({
     type: String,
   },
   phone_number: {
-    type: parseInt,
+    type: Number,
     validate: /^\d{10}$/,
     min: 10,
     max: 10,
@@ -138,7 +138,7 @@ const registeradminSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minLength: [5, "Minimum password lenth is 5"],
+    minLength: [2, "Minimum password lenth is 5"],
   },
 });
 
@@ -258,6 +258,19 @@ const bookingRoomSchema = new mongoose.Schema({
 id(bookingRoomSchema);
 const Bookings = new mongoose.model("bookings", bookingRoomSchema);
 
+//newsletter
+const newsletterSchema = new mongoose.Schema({
+  email: {
+    type: String,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+id(newsletterSchema);
+const NewsLetter = new mongoose.model("newsletter", newsletterSchema);
+
 module.exports = {
   Hostel,
   Users,
@@ -266,4 +279,5 @@ module.exports = {
   Rooms,
   Bookings,
   LandLordRequest,
+  NewsLetter,
 };
