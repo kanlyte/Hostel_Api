@@ -500,6 +500,7 @@ const book_room = async (req, res) => {
       type_of_entry: req.body.type_of_entry,
       location: req.body.location,
       user_request: true,
+      book_status: false, // meaning pending status
     });
 
     // console.log(Rooms.room_number);

@@ -55,7 +55,7 @@ app.use((req, res, next) => {
 
 // get api
 app.get("/", (req, res) => {
-  res.send("This is an api for my app.");
+  res.redirect("https://kanlyte.com");
 });
 //send email
 

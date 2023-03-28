@@ -246,6 +246,10 @@ const bookingRoomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  book_status: {
+    type: Boolean,
+    default: "false",
+  },
   booking_date: {
     type: Date,
     default: Date.now,
