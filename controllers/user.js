@@ -1,5 +1,5 @@
 // const router = require("express").Router();
-const { Users, NewsLetter } = require("../models/model");
+const { Users, NewsLetter, Reviews, Contact } = require("../models/model");
 
 /*
   Users have three routes:
@@ -162,6 +162,89 @@ const newsletter = async (req, res) => {
     res.send({ status: false, data: "An Error Occured", result: error });
   }
 };
+
+// posting reviews,
+const reviews = async (req, res) => {
+  try {
+    const newreview = new Reviews({
+      review: req.body.review,
+      name: req.body.review,
+      email: req.body.email,
+      hostel_id: req.body.hostel_id,
+    });
+    const save_review = await newreview.save();
+    res.send({
+      status: true,
+      data: "sent",
+      result: save_review,
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//getting all reviews
+const all_reviews = async (req, res) => {
+  try {
+    const reviews = await Reviews.find();
+    res.send({
+      status: true,
+      result: reviews,
+      data: "reviews",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+//getting reviews by hostel id
+
+const hostel_reviews = async (req, res) => {
+  try {
+    const reviews = await Reviews.find({ hostel_id: req.params.hostel_id });
+    res.send({
+      status: true,
+      result: reviews,
+      data: "reviews",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+// post contact us
+const contactus = async (req, res) => {
+  try {
+    const newcontactus = new Contact({
+      name: req.body.review,
+      email: req.body.email,
+      subject: req.body.subject,
+      message: req.body.message,
+    });
+
+    const save_contact = await newcontactus.save();
+    res.send({
+      status: true,
+      data: "sent",
+      result: save_contact,
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
+//getting all contact us messages
+const all_contact = async (req, res) => {
+  try {
+    const contact = await Contact.find();
+    res.send({
+      status: true,
+      result: contact,
+      data: "contact",
+    });
+  } catch (error) {
+    res.send({ status: false, data: "An Error Occured", result: error });
+  }
+};
+
 module.exports = {
   register_user,
   user_login,
@@ -170,4 +253,9 @@ module.exports = {
   all_users,
   one_user,
   newsletter,
+  reviews,
+  all_reviews,
+  all_contact,
+  contactus,
+  hostel_reviews,
 };

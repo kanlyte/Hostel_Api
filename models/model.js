@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const shortid = require("shortid");
 
 //_id to id
 const id = (schema) => {
@@ -224,6 +225,9 @@ const bookingRoomSchema = new mongoose.Schema({
   name_of_hostel: {
     type: String,
   },
+  booking_fee: {
+    type: Number,
+  },
   room_number: {
     type: String,
   },
@@ -248,11 +252,14 @@ const bookingRoomSchema = new mongoose.Schema({
   },
   book_status: {
     type: Boolean,
-    default: "false",
+    default: false,
   },
   booking_date: {
     type: Date,
     default: Date.now,
+  },
+  payment_code: {
+    type: String,
   },
 });
 id(bookingRoomSchema);
@@ -271,6 +278,42 @@ const newsletterSchema = new mongoose.Schema({
 id(newsletterSchema);
 const NewsLetter = new mongoose.model("newsletter", newsletterSchema);
 
+// reviews
+const reviewschema = new mongoose.Schema({
+  review: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  hostel_id: {
+    type: String,
+  },
+});
+id(reviewschema);
+const Reviews = new mongoose.model("reviews", reviewschema);
+
+// contact us
+const contactschema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  subject: {
+    type: String,
+  },
+  message: {
+    type: String,
+  },
+});
+id(contactschema);
+const Contact = new mongoose.model("contactus", contactschema);
+
 module.exports = {
   Hostel,
   Users,
@@ -280,4 +323,6 @@ module.exports = {
   Bookings,
   LandLordRequest,
   NewsLetter,
+  Reviews,
+  Contact,
 };

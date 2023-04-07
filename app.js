@@ -31,6 +31,14 @@ const {
   updatebooked,
   deleteallbookings,
   newslettersubscription,
+  deletebook,
+  reversebook,
+  changebook,
+  allreviews,
+  newreviews,
+  contact_us,
+  allcontactus,
+  hostelreviews,
 } = require("./routes/route");
 const ConnectDB = require("./db/connect");
 const cors = require("cors");
@@ -56,9 +64,9 @@ app.use((req, res, next) => {
 
 // get api
 app.get("/", (req, res) => {
-  res.redirect("https://kanlyte.com");
+  // res.redirect("https://kanlyte.com");
+  res.send("Don't you think you are out of place ............");
 });
-//send email
 
 //user apis
 app.use("api/v6/", registeruser);
@@ -98,9 +106,21 @@ app.use("api/v6/", getbookings);
 app.use("api/v6/", addbooking);
 app.use("api/v6/", updatebooked);
 app.use("api/v6/", deleteallbookings);
+app.use("api/v6/", deletebook);
+app.use("api/v6/", reversebook);
+app.use("api/v6/", changebook);
 
 //newsletter
-app.use("api/v6", newslettersubscription);
+app.use("api/v6/", newslettersubscription);
+
+// reviews
+app.use("api/v6/", allreviews);
+app.use("api/v6/", newreviews);
+app.use("api/v6/", hostelreviews);
+
+// contact us
+app.use("api/v6/", contact_us);
+app.use("api/v6", allcontactus);
 
 //database connectivity
 ConnectDB();

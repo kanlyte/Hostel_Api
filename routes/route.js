@@ -35,6 +35,9 @@ const {
   rooms_for_landlord_true,
   rooms_for_landlord_false,
   rooms_for_landlord,
+  delete_book,
+  reverse,
+  change,
 } = require("../controllers/hostel");
 const {
   owner_login,
@@ -51,6 +54,11 @@ const {
   all_users,
   one_user,
   newsletter,
+  reviews,
+  contactus,
+  all_contact,
+  hostel_reviews,
+  all_reviews,
 } = require("../controllers/user");
 
 //admin  routes
@@ -72,7 +80,7 @@ const alllandlordrequest = router.get(
 // user routes
 const registeruser = router.post("/newuser", register_user);
 const userlogin = router.post("/login", user_login);
-const deleteuser = router.delete("/user/:id", delete_user);
+const deleteuser = router.delete("/user/delete/:id", delete_user);
 const updateuser = router.put("/user/:id", update_user);
 const allusers = router.get("/users", all_users);
 const oneuser = router.get("/user/one/:id", one_user);
@@ -124,12 +132,22 @@ const getbookings = router.get("/allbookings", all_bookings);
 const updatebooked = router.put("/booked/:id", update_booked);
 const deleteallbookings = router.delete("/deletebookings", delete_bookings);
 const userbooking = router.get("/booking/user/:user_id", user_booking);
-const landlordbooking = router.get(
-  "/booking/landlord/:landlord_id",
-  user_booking
-);
+const deletebook = router.delete("/delete/book/:id", delete_book);
+const reversebook = router.put("/reverse/false/:id", reverse);
+const changebook = router.put("/change/true/:id", change);
+// const landlordbooking = router.get(
+//   "/booking/landlord/:landlord_id",
+//   user_booking
+// );
 
-//routes for hostel owners
+// reviews
+const newreviews = router.post("/new/review", reviews);
+const allreviews = router.get("/allreviews", all_reviews);
+const hostelreviews = router.get("/reviews/hostel/:id", hostel_reviews);
+
+// contact us
+const contact_us = router.post("/new/contact", contactus);
+const allcontactus = router.get("/allcontactus", all_contact);
 
 module.exports = {
   addhostel,
@@ -175,4 +193,12 @@ module.exports = {
   roomsforlandlordfalse,
   oneOwner,
   newslettersubscription,
+  reversebook,
+  changebook,
+  deletebook,
+  allreviews,
+  newreviews,
+  contact_us,
+  allcontactus,
+  hostelreviews,
 };
