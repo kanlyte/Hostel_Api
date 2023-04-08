@@ -168,7 +168,7 @@ const reviews = async (req, res) => {
   try {
     const newreview = new Reviews({
       review: req.body.review,
-      name: req.body.review,
+      name: req.body.name,
       email: req.body.email,
       hostel_id: req.body.hostel_id,
     });
@@ -218,7 +218,7 @@ const hostel_reviews = async (req, res) => {
 const contactus = async (req, res) => {
   try {
     const newcontactus = new Contact({
-      name: req.body.review,
+      name: req.body.name,
       email: req.body.email,
       subject: req.body.subject,
       message: req.body.message,
