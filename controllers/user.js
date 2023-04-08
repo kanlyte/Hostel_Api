@@ -200,12 +200,16 @@ const all_reviews = async (req, res) => {
 
 const hostel_reviews = async (req, res) => {
   try {
-    const reviews = await Reviews.find({ hostel_id: req.params.hostel_id });
-    res.send({
-      status: true,
-      result: reviews,
-      data: "reviews",
-    });
+    const myreviews = await Reviews.find({ hostel_id: req.params.hostel_id });
+    if (!myreviews) {
+      res.send({ status: false, data: "No reviews ", result: error });
+    } else {
+      res.send({
+        status: true,
+        result: myreviews,
+        data: "Reviews found",
+      });
+    }
   } catch (error) {
     res.send({ status: false, data: "An Error Occured", result: error });
   }

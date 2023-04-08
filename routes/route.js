@@ -143,7 +143,7 @@ const changebook = router.put("/change/true/:id", change);
 // reviews
 const newreviews = router.post("/new/review", reviews);
 const allreviews = router.get("/allreviews", all_reviews);
-const hostelreviews = router.get("/reviews/hostel/:id", hostel_reviews);
+const hostelreviews = router.get("/reviews/hostel/:hostel_id", hostel_reviews);
 
 // contact us
 const contact_us = router.post("/new/contact", contactus);
