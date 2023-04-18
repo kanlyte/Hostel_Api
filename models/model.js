@@ -108,10 +108,7 @@ const registerUserSchema = new mongoose.Schema({
     type: String,
   },
   phone_number: {
-    type: Number,
-    validate: /^\d{10}$/,
-    min: 10,
-    max: 10,
+    type: String,
   },
   email: {
     type: String,
